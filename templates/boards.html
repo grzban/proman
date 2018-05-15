@@ -22,16 +22,19 @@
             <div id="addNewBoardForm" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <p>Inser your new board name, please.</p>
-                    <input type="text" id="boardName">
-                    <input type="button" id="saveBoardName" value="Save">
+                    <p>Insert your new board name, please.</p>
+                    <form method="post">
+                        <input type="text" id="boardName">
+                        <input type="button" id="saveBoardName" value="Save">
+                    </form>
                 </div>
             </div>
         </div>
     </nav>
     <article>
         <div class="jumbotron">
-        <div id="boards" class="container">Boards are loading...</div>
+            <div id="boards" class="container">Boards are loading...</div>
+        </div>
     </article>
     <footer>
         <div>web-pro-man-betterlatethannever</div>
