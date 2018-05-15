@@ -15,6 +15,10 @@ let dom = {
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
             
+            let boardBox = document.createElement("div");
+            boardBox.id = "board-box-" + boards[i].id;
+            boardBox.className = "container";
+
             let singleBoard = document.createElement("div");
             singleBoard.id = "board-" + boards[i].id;
             singleBoard.className = "row";
@@ -22,7 +26,8 @@ let dom = {
             let titleButton = document.createElement("button");
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
             titleButton.className = "btn-block";
-            singleBoard.appendChild(titleButton);
+            boardBox.appendChild(titleButton);
+            boardBox.appendChild(singleBoard);
             
             let buttonHeader = document.createElement("h4");
             let txt = document.createTextNode(boards[i]["title"]);
@@ -45,7 +50,7 @@ let dom = {
                 newStatus.appendChild(cardsWindow);
             })
 
-            boardsDiv.appendChild(singleBoard);
+            boardsDiv.appendChild(boardBox);
 
             titleButton.addEventListener('click', function(e) {
                 e.preventDefault();
