@@ -76,7 +76,7 @@ let dom = {
     },
     showCards: function(boardId, cards) {
         let statuses = dataHandler.getStatuses();
-        for (i = 1; i =< statuses.length; i++) {
+        for (i = 1; i <= statuses.length; i++) {
             if (cards[i].board_id === i) {
               let statusDiv = document.getElementById(boardId + "-status-" + i)
               let cardDiv =  document.createElement("div");
