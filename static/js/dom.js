@@ -145,9 +145,16 @@ menuButtons = function () {
         }
     }
     saveBoardName.addEventListener('click', function(){
-        modal.style.display = "none";
-        dataHandler.createNewBoard(boardName.value);
-        dom.loadBoards();
+        let newBoardName = boardName.value;
+        console.log(newBoardName);
+        if (newBoardName == ''){
+            alert("Please insert something");
+        } else {
+            modal.style.display = "none";
+            dataHandler.createNewBoard(newBoardName);
+            dom.loadBoards();
+            boardName.value = '';
+        }
     });
 
 };
