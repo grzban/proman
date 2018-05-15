@@ -28,7 +28,7 @@ let dataHandler = {
     _saveData: function() {
         // it is not called from outside
         // saves the data from this._data to local storage
-        localStorage.setItem(this.keyInLocalStorage(JSON.stringify(_data)));
+        localStorage.setItem(this.keyInLocalStorage, JSON.stringify(this._data));
     },
 
 
@@ -160,7 +160,7 @@ let dataHandler = {
         });
 
         this._saveData();
-        
+
         if (callback) {
             return callback(this._data)
         }

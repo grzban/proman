@@ -1,7 +1,8 @@
 // It uses data_handler.js to visualize elements
 let dom = {
     loadBoards: function() {
-        var boards = dataHandler.getBoards();
+        let boards = dataHandler.getBoards();
+        return this.showBoards(boards);
     },
 
     
@@ -68,18 +69,15 @@ let dom = {
     }
     // here comes more features
 }
-console.log("SAMPLE",sampleData.boards);
-dom.showBoards(sampleData.boards);
 
 menuButtons = function() {
   var addBoard = document.getElementById('addBoard');
   var listBoards = document.getElementById('listBoards');
   addBoard.onclick = function(){
     var newName = prompt("Name your new board:")
-    dataHandler._saveData(newName)
+    dataHandler.createNewBoard(newName);
   };
-  listBoards.onclick = function(){
-    dom.showBoards(boards)};
+  listBoards.onclick = "this.loadBoards()";
   };
 
 menuButtons()
