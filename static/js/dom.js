@@ -2,30 +2,54 @@
 let dom = {
     loadBoards: function() {
         let boards = dataHandler.getBoards();
-        console.log(boards);
         return dom.showBoards(boards);
     },
-    showBoard: function(board){
+    showBoard: function(board) {
         let boardId = board.id;
         let cards = dom.loadCards(boardId);
-        alert("Show board: " + cards.id);
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
-
-        var boardsDiv = document.getElementById('boards');
+        let boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
-            var boardDiv = document.createElement("button");
-            boardDiv.id = boards[i]["title"];
-            boardDiv.classList.add("btn-block");
-            var txt = document.createTextNode(boards[i]["title"]);
-            boardDiv.appendChild(txt);
-            boardsDiv.appendChild(boardDiv);
-            boardDiv.addEventListener('click', function (e) {
+            
+            let singleBoard = document.createElement("div");
+            singleBoard.id = "board-" + boards[i].id;
+            singleBoard.className = "row";
+
+            let titleButton = document.createElement("button");
+            titleButton.id = "board-" + boards[i]["id"] + "-btn";
+            titleButton.className = "btn-block";
+            singleBoard.appendChild(titleButton);
+            
+            let buttonHeader = document.createElement("h4");
+            let txt = document.createTextNode(boards[i]["title"]);
+            buttonHeader.appendChild(txt);
+            titleButton.appendChild(buttonHeader);
+
+            let statuses = dataHandler.getStatuses();
+            statuses.forEach(function(status) {
+                let newStatus = document.createElement("div");
+                newStatus.id = "status-" + status.id;
+                newStatus.className = "col";
+                let cardsWindow = document.createElement("div");
+                cardsWindow.id = "box-" + status.id;
+                let newStatusHeader = document.createElement("h5");
+                let newStatusTitle = document.createTextNode(status.name);
+
+                singleBoard.appendChild(newStatus);
+                newStatus.appendChild(newStatusHeader);
+                newStatusHeader.appendChild(newStatusTitle);
+                newStatus.appendChild(cardsWindow);
+            })
+
+            boardsDiv.appendChild(singleBoard);
+
+            titleButton.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (e.target.className == 'btn-block') {
+                if (e.className == 'btn-block') {
                     e.preventDefault();
                     let id = e.srcElement.id;
                     let board = boards[i];
@@ -34,22 +58,15 @@ let dom = {
                     }
                 }
             });
-
         }
-        ;
-      //  var boardDiv = document.createElement(div);
-
     },
     loadCards: function(boardId) {
-        //var allCards = dataHandler._data.cards; <- po napisaniu Bartka funkcji
-          var allCards = sampleData.cards;
-          var boardCards = [];
-          for (let i = 0; i< allCards.length; i++) {
-            if (allCards[i]["board_id"] == boardId) {
-              boardCards.push(allCards[i]);
-            }
-          };
-          return boardCards;
+          let boardCards = dataHandler.getCardsByBoardId(boardId);
+          if (boardCards) {
+              return boardCards;
+          } else {
+              return null;
+          }
     },
     showCards: function(cards) {
         // shows the cards of a board
