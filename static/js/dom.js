@@ -14,7 +14,7 @@ let dom = {
         let boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
-            
+
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
             boardBox.className = "container";
@@ -28,7 +28,7 @@ let dom = {
             titleButton.className = "btn-block";
             boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoard);
-            
+
             let buttonHeader = document.createElement("h4");
             let txt = document.createTextNode(boards[i]["title"]);
             buttonHeader.appendChild(txt);
@@ -37,7 +37,7 @@ let dom = {
             let statuses = dataHandler.getStatuses();
             statuses.forEach(function(status) {
                 let newStatus = document.createElement("div");
-                newStatus.id = "status-" + status.id;
+                newStatus.id = boards[i].id + "-status-" + status.id;
                 newStatus.className = "col";
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "box-" + status.id;
@@ -66,6 +66,7 @@ let dom = {
         }
     },
     loadCards: function(boardId) {
+
           let boardCards = dataHandler.getCardsByBoardId(boardId);
           if (boardCards) {
               return boardCards;
@@ -73,7 +74,22 @@ let dom = {
               return null;
           }
     },
-    showCards: function(cards) {
+    showCards: function(boardId, cards) {
+        let statuses = dataHandler.getStatuses();
+        for (i = 1; i =< statuses.length; i++) {
+            if (cards[i].board_id === i) {
+              let statusDiv = document.getElementById(boardId + "-status-" + i)
+              let cardDiv =  document.createElement("div");
+              let txt = document.createTextNode(cards[i]["title"]);
+              cardDiv.className = "card";
+              cardDiv.id = cards[i].id;
+              dom.appendToElement(cardDiv, txt);
+              dom.appendToElement(statusDiv, cardDiv);
+
+          }
+        }
+
+
         // shows the cards of a board
         // it adds necessary event listeners also
     },
