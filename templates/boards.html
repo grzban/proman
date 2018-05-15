@@ -6,8 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ProMan</title>
-
-
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/sample_data.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
@@ -15,15 +13,28 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     <body>
-      <nav class="navbar navbar-inverse" role="navigation">
-          <div class="container">
-              <span id="proman" class="navbar-brand mb-0 h3">PROMAN: </span>
-              <span id="listBoards" class="navbar-brand mb-0 h1">list boards</span>
-              <span id="addBoard" class="navbar-brand mb-0 h1">add new board</span>
-          </div>
-      </nav>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <span id="proman" class="navbar-brand mb-0 h3">PROMAN: </span>
+            <span id="listBoards" class="navbar-brand mb-0 h1">list boards</span>
+            <!--<span id="addBoard" class="navbar-brand mb-0 h1">add new board</span>-->
+            <span class="navbar-brand mb-0 h1" id="addNewBoardButton">Add New Board</span>
+            <div id="addNewBoardForm" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Inser your new board name, please.</p>
+                    <input type="text" id="boardName">
+                    <input type="button" id="saveBoardName" value="Save">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <article>
         <div class="jumbotron">
         <div id="boards" class="container">Boards are loading...</div>
-        </div>
+    </article>
+    <footer>
+        <div>web-pro-man-betterlatethannever</div>
+    </footer>
     </body>
 </html>

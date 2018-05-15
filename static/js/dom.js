@@ -1,12 +1,16 @@
 // It uses data_handler.js to visualize elements
 let dom = {
+    getBoardName: function(){
+        alert("hellos");
+    },
     loadBoards: function() {
         let boards = dataHandler.getBoards();
-        return dom.showBoards(boards);
+        return this.showBoards(boards);
     },
     showBoard: function(board) {
         let boardId = board.id;
-        let cards = dom.loadCards(boardId);
+        let cards = this.loadCards(boardId);
+        alert("Show board: " + cards.id);
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -14,7 +18,7 @@ let dom = {
         let boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
-            
+
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
             boardBox.className = "container";
@@ -26,9 +30,11 @@ let dom = {
             let titleButton = document.createElement("button");
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
             titleButton.className = "btn-block";
+            singleBoard.appendChild(titleButton);
+
             boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoard);
-            
+
             let buttonHeader = document.createElement("h4");
             let txt = document.createTextNode(boards[i]["title"]);
             buttonHeader.appendChild(txt);
@@ -96,13 +102,38 @@ let dom = {
 }
 
 menuButtons = function () {
-    var addBoard = document.getElementById('addBoard');
+    /*var addBoard = document.getElementById('addBoard');
     var listBoards = document.getElementById('listBoards');
     addBoard.onclick = function () {
         var newName = prompt("Name your new board:")
         dataHandler.createNewBoard(newName);
         dom.loadBoards();
-    };
+    };*/
+
+    let modal = document.getElementById('addNewBoardForm');
+    let btn = document.getElementById("addNewBoardButton");
+    let span = document.getElementsByClassName("close")[0];
+    let boardName = document.getElementById('boardName');
+    let saveBoardName = document.getElementById('saveBoardName');
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == 'addNewBoardButton') {
+            modal.style.display = "none";
+        }
+    }
+    saveBoardName.addEventListener('click', function(){
+        modal.style.display = "none";
+        dataHandler.createNewBoard(boardName.value);
+        dom.loadBoards();
+    });
+
 };
 
 menuButtons()
