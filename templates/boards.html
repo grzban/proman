@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ProMan</title>
 
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/sample_data.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     </head>
     <body>
-        <h1>ProMan</h1>
-        <div id="boards">Boards are loading...</div>
+      <nav class="navbar navbar-inverse" role="navigation">
+          <div class="container">
+              <span id="proman" class="navbar-brand mb-0 h3">PROMAN: </span>
+              <span id="listBoards" class="navbar-brand mb-0 h1">list boards</span>
+              <span id="addBoard" class="navbar-brand mb-0 h1">add new board</span>
+          </div>
+      </nav>
+        <div class="jumbotron"
+        <div id="boards" class="container-fluid">Boards are loading...</div>
+        </div>
     </body>
 </html>

@@ -6,20 +6,68 @@
 let dataHandler = {
     keyInLocalStorage: 'proman-data', // the string that you use as a key in localStorage to save your application data
     _data: {}, // it contains the boards and their cards and statuses. It is not called from outside.
-    _loadData: function() {
+
+
+    //new in
+    generateBoardId: function() {
+
+          // Sets lastBoardId in local storage to '0' if it doesn't already exist
+        if (!JSON.parse(localStorage.getItem("lastBoardId"))) {
+            console.log("weszło w if lastId");
+            localStorage.setItem('lastBoardId', JSON.stringify(0));
+          };
+
+          //sets a unique id
+        var newId = JSON.parse(localStorage.getItem("lastBoardId")) + 1;
+
+          // sets lastBoardId to the id of the current board
+        localStorage.setItem('lastBoardId', JSON.stringify(newId));
+
+        return newId;
+        },
+
+
+    _loadData: function ()  {
         // it is not called from outside
         // loads data from local storage, parses it and put into this._data property
-    },
-    _saveData: function() {
+        let _data= JSON.parse(localStorage.getItem("boards"));
+        console.log("data z loada:" , _data);
+        },
+
+    _saveData: function(dataKey, dataValue) {
+        console.log("weszlo w funkcje savedata")
         // it is not called from outside
         // saves the data from this._data to local storage
-    },
+        localStorage.setItem('boards', JSON.stringify([]));
+        _data= JSON.parse(localStorage.getItem("boards"));
+        console.log(_data);
+        _data.push(board);
+        console.log(_data);
+        },
+
+  //    if (!JSON.parse(localStorage.getItem("boards"))) {
+  //      localStorage.setItem('boards', JSON.stringify([]))
+  //    };
+  //  var _data2 = JSON.parse(localStorage.getItem("boards"));
+  //    dataValue.id = dataHandler.generateBoardId();
+  //    _data2 = _data2.push(dataValue);
+  //    console.log("data po miedlenniu" + _data2)
+
+
+
+
     init: function() {
         this._loadData();
-    },
+},
+
     getBoards: function(callback) {
-        // the boards are retrieved and then the callback function is called with the boards
-    },
+      let boards = datahandler._data["boards"]
+      if (callback) callback(boards);
+        return boards
+          // the boards are retrieved and then the callback function is called with the boards
+  },
+
+
     getBoard: function(boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
     },
@@ -42,4 +90,11 @@ let dataHandler = {
         // creates new card, saves it and calls the callback function with its data
     }
     // here comes more features
+
 };
+var board = {
+name: "name2",
+api_key :  'proman-data'
+};
+
+dataHandler._saveData('board3', board);
