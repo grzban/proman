@@ -15,12 +15,12 @@ let dataHandler = {
 
         if (jsonString != null) {
             this._data = JSON.parse(jsonString);
-        }
-        else {
-            this._data =
-            "statuses" = [],
-            "boards" = [],
-            "cards" = []
+        } else {
+            this._data = {
+            "statuses": [],
+            "boards": [],
+            "cards": []
+            };
         }
     },
 
@@ -29,12 +29,12 @@ let dataHandler = {
         // it is not called from outside
         // saves the data from this._data to local storage
         localStorage.setItem(this.keyInLocalStorage(JSON.stringify(_data)));
-        },
+    },
 
 
     init: function() {
         this._loadData();
-},
+    },
 
 
     getBoards: function(callback) {
@@ -43,13 +43,11 @@ let dataHandler = {
       
         if (typeof(boards) === "undefined") {
           return null;
-        }
-        else {
+        } else {
             if (callback) {
                 return callback(boards);
-            }
-            else {
-                return boards
+            } else {
+                return boards;
             }
         }
     },
@@ -63,8 +61,7 @@ let dataHandler = {
             if (boards[i].boardId === boardId) {
                 if (callback) {
                     return callback(boards[i]);
-                }
-                else {
+                } else {
                     return boards[i];
                 }
             }
@@ -79,12 +76,10 @@ let dataHandler = {
 
         if (typeof(statuses) === "undefined") {
             return null;
-        }
-        else {
+        } else {
             if (callback) {
                 return callback(statuses);
-            }
-            else {
+            } else {
                 return statuses;
             }
         }
@@ -99,8 +94,7 @@ let dataHandler = {
             if (statuses[i].statusId === statusId) {
                 if (callback) {
                     return callback(statuses[i]);
-                }
-                else {
+                } else {
                     return statuses[i];
                 }
             }
@@ -122,9 +116,7 @@ let dataHandler = {
 
         if (results.length === 0) {
             return null;
-        }
-
-        else {
+        } else {
             if (callback) {
                 return callback(results);
             }
@@ -143,8 +135,7 @@ let dataHandler = {
             if (cards[i].cardId === cardId) {
                 if (callback) {
                     return callback(cards[i]);
-                }
-                else {
+                } else {
                     return cards[i];
                 }
             }
@@ -158,7 +149,7 @@ let dataHandler = {
     },
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
-    }
+    },
     // here comes more features
 
 };
