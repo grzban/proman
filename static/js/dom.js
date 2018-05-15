@@ -35,6 +35,7 @@ let dom = {
               boardCards.push(allCards[i]);
             }
           };
+          return boardCards;
     },
 
     showCards: function(cards) {
