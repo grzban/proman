@@ -11,7 +11,7 @@ let dom = {
         var boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (i=0; i < boards.length; i++) {
-          console.log("weszło do fora");
+
           var boardDiv = document.createElement("button");
           boardDiv.id = boards[i]["title"];
           boardDiv.classList.add("btn-block");
@@ -35,8 +35,17 @@ let dom = {
 
 
     loadCards: function(boardId) {
-        // retrieves cards and makes showCards called
+        //var allCards = dataHandler._data.cards; <- po napisaniu Bartka funkcji
+          var allCards = sampleData.cards;
+          var boardCards = [];
+          for (i=0; i< allCards.length; i++) {
+            if (allCards[i]["board_id"] == boardId) {
+              boardCards.push(allCards[i]);
+            }
+          };
+          return boardCards;
     },
+
     showCards: function(cards) {
         // shows the cards of a board
         // it adds necessary event listeners also

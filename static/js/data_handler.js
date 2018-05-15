@@ -8,81 +8,151 @@ let dataHandler = {
     _data: {}, // it contains the boards and their cards and statuses. It is not called from outside.
 
 
-    //new in
-    generateBoardId: function() {
-
-          // Sets lastBoardId in local storage to '0' if it doesn't already exist
-        if (!JSON.parse(localStorage.getItem("lastBoardId"))) {
-            console.log("weszło w if lastId");
-            localStorage.setItem('lastBoardId', JSON.stringify(0));
-          };
-
-          //sets a unique id
-        var newId = JSON.parse(localStorage.getItem("lastBoardId")) + 1;
-
-          // sets lastBoardId to the id of the current board
-        localStorage.setItem('lastBoardId', JSON.stringify(newId));
-
-        return newId;
-        },
-
-
     _loadData: function ()  {
         // it is not called from outside
         // loads data from local storage, parses it and put into this._data property
-        let _data= JSON.parse(localStorage.getItem("boards"));
-        console.log("data z loada:" , _data);
-        },
+        let jsonString= localStorage.getItem(this.keyInLocalStorage);
 
-    _saveData: function(dataKey, dataValue) {
-        console.log("weszlo w funkcje savedata")
+        if (jsonString != null) {
+            this._data = JSON.parse(jsonString);
+        }
+        else {
+            this._data =
+            "statuses" = [],
+            "boards" = [],
+            "cards" = []
+        }
+    },
+
+
+    _saveData: function() {
         // it is not called from outside
         // saves the data from this._data to local storage
-        localStorage.setItem('boards', JSON.stringify([]));
-        _data= JSON.parse(localStorage.getItem("boards"));
-        console.log(_data);
-        _data.push(board);
-        console.log(_data);
+        localStorage.setItem(this.keyInLocalStorage(JSON.stringify(_data)));
         },
-
-  //    if (!JSON.parse(localStorage.getItem("boards"))) {
-  //      localStorage.setItem('boards', JSON.stringify([]))
-  //    };
-  //  var _data2 = JSON.parse(localStorage.getItem("boards"));
-  //    dataValue.id = dataHandler.generateBoardId();
-  //    _data2 = _data2.push(dataValue);
-  //    console.log("data po miedlenniu" + _data2)
-
-
 
 
     init: function() {
         this._loadData();
 },
 
+
     getBoards: function(callback) {
-      let boards = datahandler._data["boards"]
-      if (callback) callback(boards);
-        return boards
-          // the boards are retrieved and then the callback function is called with the boards
-  },
+        // the boards are retrieved and then the callback function is called with the boards      
+        let boards = this._data.boards;
+      
+        if (typeof(boards) === "undefined") {
+          return null;
+        }
+        else {
+            if (callback) {
+                return callback(boards);
+            }
+            else {
+                return boards
+            }
+        }
+    },
 
 
     getBoard: function(boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
+        let boards = this.getBoards
+        
+        for (let i = 0; i < boards.length; i++) {
+            if (boards[i].boardId === boardId) {
+                if (callback) {
+                    return callback(boards[i]);
+                }
+                else {
+                    return boards[i];
+                }
+            }
+        }
+        return null;
     },
+
+
     getStatuses: function(callback) {
         // the statuses are retrieved and then the callback function is called with the statuses
+        let statuses = this._data.statuses;
+
+        if (typeof(statuses) === "undefined") {
+            return null;
+        }
+        else {
+            if (callback) {
+                return callback(statuses);
+            }
+            else {
+                return statuses;
+            }
+        }
     },
+
+
     getStatus: function(statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
+        let statuses = this.getStatuses 
+        
+        for (let i = 0; i < statuses.length; i++) {
+            if (statuses[i].statusId === statusId) {
+                if (callback) {
+                    return callback(statuses[i]);
+                }
+                else {
+                    return statuses[i];
+                }
+            }
+        }
+        return null;
     },
+
+
     getCardsByBoardId: function(boardId, callback) {
         // the cards are retrieved and then the callback function is called with the cards
+        let results = [];
+        let cards = this._data.cards;
+
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].boardId === boardId) {
+                results.push(cards[i]);
+            }
+        }
+
+        if (results.length === 0) {
+            return null;
+        }
+
+        else {
+            if (callback) {
+                return callback(results);
+            }
+            else {
+                return results;
+            }
+        }
     },
+
+    
     getCard: function(cardId, callback) {
         // the card is retrieved and then the callback function is called with the card
+        let cards = this._data.cards;
+
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].cardId === cardId) {
+                if (callback) {
+                    return callback(cards[i]);
+                }
+                else {
+                    return cards[i];
+                }
+            }
+        }
+        return null;
     },
+
+
     createNewBoard: function(boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
     },
@@ -92,9 +162,3 @@ let dataHandler = {
     // here comes more features
 
 };
-var board = {
-name: "name2",
-api_key :  'proman-data'
-};
-
-dataHandler._saveData('board3', board);
