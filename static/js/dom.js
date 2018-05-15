@@ -18,6 +18,14 @@ let dom = {
           var txt = document.createTextNode(boards[i]["title"]);
           boardDiv.appendChild(txt);
           boardsDiv.appendChild(boardDiv);
+          boardDiv.addEventListener('click', function (e){
+              e.preventDefault();
+              if(e.target.className == 'btn-block') {
+                  e.preventDefault();
+                  var id = e.srcElement.id;
+                  alert("you clicked the board: " + id);
+              }
+          });
 
       };
       //  var boardDiv = document.createElement(div);
@@ -68,7 +76,7 @@ menuButtons = function() {
   addBoard.onclick = function(){
     var newName = prompt("Name your new board:")
     dataHandler._saveData(newName)
-    };
+  };
   listBoards.onclick = function(){
     dom.showBoards(boards)};
   };
