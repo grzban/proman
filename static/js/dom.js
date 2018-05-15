@@ -2,39 +2,41 @@
 let dom = {
     loadBoards: function() {
         let boards = dataHandler.getBoards();
-        return this.showBoards(boards);
+        console.log(boards);
+        return dom.showBoards(boards);
     },
     showBoard: function(board){
         let boardId = board.id;
         let cards = dom.loadCards(boardId);
         alert("Show board: " + cards.id);
     },
-    showBoards: function(boards) {
+    showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
         var boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
-          var boardDiv = document.createElement("button");
-          boardDiv.id = boards[i]["title"];
-          boardDiv.classList.add("btn-block");
-          var txt = document.createTextNode(boards[i]["title"]);
-          boardDiv.appendChild(txt);
-          boardsDiv.appendChild(boardDiv);
-          boardDiv.addEventListener('click', function (e){
-              e.preventDefault();
-              if(e.target.className == 'btn-block') {
-                  e.preventDefault();
-                  let id = e.srcElement.id;
-                  let board = boards[i];
-                  if (board.is_active) {
-                      dom.showBoard(board);
-                  }
-              }
-          });
+            var boardDiv = document.createElement("button");
+            boardDiv.id = boards[i]["title"];
+            boardDiv.classList.add("btn-block");
+            var txt = document.createTextNode(boards[i]["title"]);
+            boardDiv.appendChild(txt);
+            boardsDiv.appendChild(boardDiv);
+            boardDiv.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (e.target.className == 'btn-block') {
+                    e.preventDefault();
+                    let id = e.srcElement.id;
+                    let board = boards[i];
+                    if (board.is_active) {
+                        dom.showBoard(board);
+                    }
+                }
+            });
 
-      };
+        }
+        ;
       //  var boardDiv = document.createElement(div);
 
     },
@@ -42,7 +44,7 @@ let dom = {
         //var allCards = dataHandler._data.cards; <- po napisaniu Bartka funkcji
           var allCards = sampleData.cards;
           var boardCards = [];
-          for (i=0; i< allCards.length; i++) {
+          for (let i = 0; i< allCards.length; i++) {
             if (allCards[i]["board_id"] == boardId) {
               boardCards.push(allCards[i]);
             }
@@ -71,14 +73,14 @@ let dom = {
     // here comes more features
 }
 
-menuButtons = function() {
-  var addBoard = document.getElementById('addBoard');
-  var listBoards = document.getElementById('listBoards');
-  addBoard.onclick = function(){
-    var newName = prompt("Name your new board:")
-    dataHandler.createNewBoard(newName);
-  };
-  listBoards.onclick = "this.loadBoards()";
-  };
+menuButtons = function () {
+    var addBoard = document.getElementById('addBoard');
+    var listBoards = document.getElementById('listBoards');
+    addBoard.onclick = function () {
+        var newName = prompt("Name your new board:")
+        dataHandler.createNewBoard(newName);
+        dom.loadBoards();
+    };
+};
 
 menuButtons()

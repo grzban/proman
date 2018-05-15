@@ -58,7 +58,7 @@ let dataHandler = {
         let boards = this.getBoards
         
         for (let i = 0; i < boards.length; i++) {
-            if (boards[i].boardId === boardId) {
+            if (boards[i].id === boardId) {
                 if (callback) {
                     return callback(boards[i]);
                 } else {
