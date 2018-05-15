@@ -4,14 +4,18 @@ let dom = {
         var boards = sampleData.boards;
         console.log("BOARDS Z DOM", boards)
     },
+    showBoard: function(board){
+        let boardId = board.id;
+        let cards = dom.loadCards(boardId);
+        alert("Show board: " + cards.id);
+    },
     showBoards: function(boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
         var boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
-        for (i=0; i < boards.length; i++) {
-
+        for (let i = 0; i < boards.length; i++) {
           var boardDiv = document.createElement("button");
           boardDiv.id = boards[i]["title"];
           boardDiv.classList.add("btn-block");
@@ -22,8 +26,11 @@ let dom = {
               e.preventDefault();
               if(e.target.className == 'btn-block') {
                   e.preventDefault();
-                  var id = e.srcElement.id;
-                  alert("you clicked the board: " + id);
+                  let id = e.srcElement.id;
+                  let board = boards[i];
+                  if (board.is_active) {
+                      dom.showBoard(board);
+                  }
               }
           });
 
@@ -31,9 +38,6 @@ let dom = {
       //  var boardDiv = document.createElement(div);
 
     },
-
-
-
     loadCards: function(boardId) {
         //var allCards = dataHandler._data.cards; <- po napisaniu Bartka funkcji
           var allCards = sampleData.cards;
@@ -45,7 +49,6 @@ let dom = {
           };
           return boardCards;
     },
-
     showCards: function(cards) {
         // shows the cards of a board
         // it adds necessary event listeners also

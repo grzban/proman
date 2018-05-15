@@ -32,6 +32,11 @@ let sampleData = {
             "id": 2,
             "title": "Test Board 2",
             "is_active": true
+        },
+        {
+            "id": 3,
+            "title": "Test Board 3",
+            "is_active": false
         }
     ],
     "cards": [
