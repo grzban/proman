@@ -146,10 +146,64 @@ let dataHandler = {
 
     createNewBoard: function(boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
+        let boards = this.getBoards();
+        let newId = boards[boards.length - 1].id + 1;
+
+        boards.forEach(board => {
+            board.is_active = false
+        });
+
+        boards.push({
+            "id": newId,
+            "title": boardTitle,
+            "is_active": true
+        });
+
+        this._saveData();
+        
+        if (callback) {
+            return callback(this._data)
+        }
     },
+
+
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
+        let cards = this._data.cards;
+        let newId = cards[cards.length - 1].id + 1;
+
+        cards.push({
+            "id": newId,
+            "title": cardTitle,
+            "board_id": boardId,
+            "status_id": statusId,
+            "order": this.getOrderForNewCard(boardId)
+        })
+
+        this._saveData();
+
+        if (callback) {
+            return callback(this._data);
+        }
     },
     // here comes more features
+
+
+    getOrderForNewCard: function(boardId) {
+        let cards = this.getCardsByBoardId(boardId);
+        let newOrder = 0;
+
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].order > newOrder) {
+                newOrder = cards[i].order;
+            }
+        }
+
+        if (newOrder === 0) {
+            return 1;
+        } else {
+            return newOrder + 1;
+        }
+    }
 
 };

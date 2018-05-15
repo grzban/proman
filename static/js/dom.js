@@ -2,8 +2,9 @@
 let dom = {
     loadBoards: function() {
         var boards = dataHandler.getBoards();
-        console.log("BOARDS Z DOM", boards)
     },
+
+    
     showBoards: function(boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
