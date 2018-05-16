@@ -29,7 +29,8 @@ let dom = {
 
             let titleButton = document.createElement("button");
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
-            titleButton.className = "btn-block";
+            titleButton.className = "btn-primary";
+            titleButton.style.width = "100%";
             singleBoard.appendChild(titleButton);
 
             boardBox.appendChild(titleButton);
@@ -50,6 +51,7 @@ let dom = {
                 let cardsWindowHeight = cardsWindow.offsetHeight + 40;
                 cardsWindow.style.height = cardsWindowHeight + "px";
                 let newStatusHeader = document.createElement("h5");
+                newStatusHeader.style.textAlign = "center";
                 let newStatusTitle = document.createTextNode(status.name);
 
                 singleBoard.appendChild(newStatus);

@@ -15,10 +15,8 @@
     <body>
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
-            <span id="proman" class="navbar-brand mb-0 h3">PROMAN: </span>
-            <span id="listBoards" class="navbar-brand mb-0 h1">list boards</span>
-            <!--<span id="addBoard" class="navbar-brand mb-0 h1">add new board</span>-->
-            <span class="navbar-brand mb-0 h1" id="addNewBoardButton">Add New Board</span>
+            <img src="{{ url_for('static', filename='image/logo.png') }}" id="proman" class="navbar-brand mb-0 h3"></img>
+            <button class="btn-danger" id="addNewBoardButton">Add New Board</button>
             <div id="addNewBoardForm" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
