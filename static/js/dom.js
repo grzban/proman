@@ -8,9 +8,7 @@ let dom = {
         return this.showBoards(boards);
     },
     showBoard: function(board) {
-        let boardId = board.id;
-        let cards = this.loadCards(boardId);
-        this.showCards(boardId, cards);
+
         alert("Show board: " + cards.id);
     },
     showBoards: function (boards) {
@@ -67,9 +65,11 @@ let dom = {
                 newStatus.appendChild(newStatusHeader);
                 newStatusHeader.appendChild(newStatusTitle);
                 newStatus.appendChild(cardsWindow);
-            })
 
+            });
             boardsDiv.appendChild(boardBox);
+            let cards = dom.loadCards(boards[i].id);
+            dom.showCards(boards[i].id, cards);
 
             titleButton.onclick = function(e) {
                 e.preventDefault();
@@ -82,15 +82,18 @@ let dom = {
         }
     },
     loadCards: function(boardId) {
-
           let boardCards = dataHandler.getCardsByBoardId(boardId);
           if (boardCards) {
-              return showCards(boardId, boardCards);
+              return boardCards;
           } else {
               return null;
           }
     },
     showCards: function(boardId, cards) {
+      if (cards == null) {
+        console.log("There are no cards connected with this board")
+        return;
+      } else {
       let statuses = dataHandler.getStatuses();
 
       for (i = 1; i <= statuses.length; i++) {
@@ -104,6 +107,7 @@ let dom = {
                 cardDiv.id = cards[c].id;
                 cardDiv.appendChild(txt);
                 statusDiv.appendChild(cardDiv);
+            };
           };
         };
       };
