@@ -29,10 +29,18 @@ let dom = {
             boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoard);
 
-            let buttonHeader = document.createElement("h4");
+            let buttonHeader = document.createElement("h3");
             let txt = document.createTextNode(boards[i]["title"]);
             buttonHeader.appendChild(txt);
             titleButton.appendChild(buttonHeader);
+            let cardButton = document.createElement("button");
+            cardButton.className = "btn-warning";
+            cardButton.style.fontSize = "12px";
+            let cardButtonHeader = document.createElement("span");
+            let cardTxt = document.createTextNode("Add new Card");
+            cardButton.appendChild(cardButtonHeader);
+            cardButtonHeader.appendChild(cardTxt);
+            titleButton.appendChild(cardButton);
 
             let statuses = dataHandler.getStatuses();
             statuses.forEach(function(status) {
