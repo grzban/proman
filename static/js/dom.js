@@ -157,8 +157,11 @@ menuButtons = function () {
     }
     saveBoardName.onclick = function(){
         let newBoardName = boardName.value;
-        if (newBoardName == ''){
+        if (newBoardName == '') {
             alert("Please insert something");
+        };
+        if (dataHandler._data.boards.find(function (obj) {return obj.title == newBoardName; })){
+                alert("Please choose a unique title for your board!");
         } else {
             modal.style.display = "none";
             dataHandler.createNewBoard(newBoardName);
