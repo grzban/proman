@@ -1,18 +1,10 @@
 // It uses data_handler.js to visualize elements
 let dom = {
-    getBoardName: function(){
-        alert("hellos");
-    },
     loadBoards: function() {
         let boards = dataHandler.getBoards();
         return this.showBoards(boards);
     },
-    showBoard: function(board) {
-        let boardId = board.id;
-        let cards = this.loadCards(boardId);
-        this.showCards(boardId, cards);
-        alert("Show board: " + cards.id);
-    },
+
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
@@ -62,14 +54,18 @@ let dom = {
             })
 
             boardsDiv.appendChild(boardBox);
+            let board = boards[i];
+            let id = board.id;
+            let boardDiv = document.getElementById('board-'+ id);
 
-            titleButton.onclick = function(e) {
-                e.preventDefault();
-                let id = e.target.id; //changed due to FF bugs
-                let board = boards[i];
-                if (board.is_active) {
-                    dom.showBoard(board);
-                }
+            if (board.is_active) {
+                boardDiv.style.display = ""
+            } else {
+                boardDiv.style.display = "none";
+            }
+            titleButton.onclick = function() {
+                dataHandler.changeStatus(id);
+                dom.loadBoards();
             };
         }
     },
