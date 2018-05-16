@@ -65,7 +65,9 @@ let dom = {
             });
 
             boardsDiv.appendChild(boardBox);
-            
+            let cards = dom.loadCards(boards[i].id);
+            dom.showCards(boards[i].id, cards);
+
             let board = boards[i];
             let id = board.id;
             let boardDiv = document.getElementById('board-'+ id);
