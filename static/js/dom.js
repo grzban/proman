@@ -84,12 +84,12 @@ let dom = {
     showCards: function(boardId, cards) {
         let statuses = dataHandler.getStatuses();
         for (i = 1; i <= statuses.length; i++) {
-            if (cards[i].board_id === i) {
-              let statusDiv = document.getElementById("board-" + boardId + "-status-" + i);
+            if (cards[i-1].board_id === i) {
+              let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
               let cardDiv =  document.createElement("div");
-              let txt = document.createTextNode(cards[i]["title"]);
+              let txt = document.createTextNode(cards[i-1]["title"]);
               cardDiv.className = "card";
-              cardDiv.id = cards[i].id;
+              cardDiv.id = cards[i-1].id;
               dom.appendToElement(cardDiv, txt);
               dom.appendToElement(statusDiv, cardDiv);
 
