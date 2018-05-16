@@ -21,6 +21,7 @@ let dom = {
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
             boardBox.className = "container";
+            boardBox.style.height = "120%";
 
             let singleBoard = document.createElement("div");
             singleBoard.id = "board-" + boards[i].id;
