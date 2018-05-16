@@ -15,33 +15,35 @@ let dom = {
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
             boardBox.className = "container";
-            boardBox.style.height = "120%";
+
+            let singleBoardContainer = document.createElement("div");
+            singleBoardContainer.id = "board-" + boards[i].id;
 
             let singleBoard = document.createElement("div");
-            singleBoard.id = "board-" + boards[i].id;
+            singleBoard.id = "board-" + boards[i].id + "-container";
             singleBoard.className = "row";
 
             let titleButton = document.createElement("button");
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
             titleButton.className = "btn-primary";
             titleButton.style.width = "100%";
-            singleBoard.appendChild(titleButton);
+            let cardButton = document.createElement("button");
+            cardButton.className = "btn-warning";
+            cardButton.style.fontSize = "12px";
 
             boardBox.appendChild(titleButton);
-            boardBox.appendChild(singleBoard);
+            boardBox.appendChild(singleBoardContainer);
+            singleBoardContainer.appendChild(cardButton);
+            singleBoardContainer.appendChild(singleBoard);
 
             let buttonHeader = document.createElement("h3");
             let txt = document.createTextNode(boards[i]["title"]);
             buttonHeader.appendChild(txt);
             titleButton.appendChild(buttonHeader);
-            let cardButton = document.createElement("button");
-            cardButton.className = "btn-warning";
-            cardButton.style.fontSize = "12px";
             let cardButtonHeader = document.createElement("span");
             let cardTxt = document.createTextNode("Add new Card");
             cardButton.appendChild(cardButtonHeader);
             cardButtonHeader.appendChild(cardTxt);
-            titleButton.appendChild(cardButton);
 
             let statuses = dataHandler.getStatuses();
             statuses.forEach(function(status) {
@@ -63,6 +65,7 @@ let dom = {
             });
 
             boardsDiv.appendChild(boardBox);
+            
             let board = boards[i];
             let id = board.id;
             let boardDiv = document.getElementById('board-'+ id);
