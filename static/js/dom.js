@@ -62,17 +62,14 @@ let dom = {
 
             boardsDiv.appendChild(boardBox);
 
-            titleButton.addEventListener('click', function(e) {
+            titleButton.onclick = function(e) {
                 e.preventDefault();
-                if (e.className == 'btn-block') {
-                    e.preventDefault();
-                    let id = e.srcElement.id;
-                    let board = boards[i];
-                    if (board.is_active) {
-                        dom.showBoard(board);
-                    }
+                let id = e.srcElement.id;
+                let board = boards[i];
+                if (board.is_active) {
+                    dom.showBoard(board);
                 }
-            });
+            };
         }
     },
     loadCards: function(boardId) {
@@ -87,12 +84,12 @@ let dom = {
     showCards: function(boardId, cards) {
         let statuses = dataHandler.getStatuses();
         for (i = 1; i <= statuses.length; i++) {
-            if (cards[i].board_id === i) {
-              let statusDiv = document.getElementById("board-" + boardId + "-status-" + i);
+            if (cards[i-1].board_id === i) {
+              let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
               let cardDiv =  document.createElement("div");
-              let txt = document.createTextNode(cards[i]["title"]);
+              let txt = document.createTextNode(cards[i-1]["title"]);
               cardDiv.className = "card";
-              cardDiv.id = cards[i].id;
+              cardDiv.id = cards[i-1].id;
               dom.appendToElement(cardDiv, txt);
               dom.appendToElement(statusDiv, cardDiv);
 
@@ -148,7 +145,7 @@ menuButtons = function () {
             modal.style.display = "none";
         }
     }
-    saveBoardName.addEventListener('click', function(){
+    saveBoardName.onclick = function(){
         let newBoardName = boardName.value;
         if (newBoardName == ''){
             alert("Please insert something");
@@ -158,7 +155,7 @@ menuButtons = function () {
             dom.loadBoards();
             boardName.value = '';
         }
-    });
+    };
 
 };
 
