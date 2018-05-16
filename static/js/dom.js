@@ -43,10 +43,12 @@ let dom = {
             let statuses = dataHandler.getStatuses();
             statuses.forEach(function(status) {
                 let newStatus = document.createElement("div");
-                newStatus.id = boards[i].id + "-status-" + status.id;
+                newStatus.id = "board-" + boards[i].id + "-status-" + status.id;
                 newStatus.className = "col";
                 let cardsWindow = document.createElement("div");
-                cardsWindow.id = "box-" + status.id;
+                cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
+                let cardsWindowHeight = cardsWindow.offsetHeight + 40;
+                cardsWindow.style.height = cardsWindowHeight + "px";
                 let newStatusHeader = document.createElement("h5");
                 let newStatusTitle = document.createTextNode(status.name);
 
@@ -75,7 +77,7 @@ let dom = {
 
           let boardCards = dataHandler.getCardsByBoardId(boardId);
           if (boardCards) {
-              return boardCards;
+              return showCards(boardId, boardCards);
           } else {
               return null;
           }
@@ -84,7 +86,7 @@ let dom = {
         let statuses = dataHandler.getStatuses();
         for (i = 1; i <= statuses.length; i++) {
             if (cards[i].board_id === i) {
-              let statusDiv = document.getElementById(boardId + "-status-" + i)
+              let statusDiv = document.getElementById("board-" + boardId + "-status-" + i);
               let cardDiv =  document.createElement("div");
               let txt = document.createTextNode(cards[i]["title"]);
               cardDiv.className = "card";
