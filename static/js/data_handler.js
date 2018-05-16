@@ -44,9 +44,9 @@ let dataHandler = {
 
 
     getBoards: function(callback) {
-        // the boards are retrieved and then the callback function is called with the boards      
+        // the boards are retrieved and then the callback function is called with the boards
         let boards = this._data.boards;
-      
+
         if (typeof(boards) === "undefined") {
           return null;
         } else {
@@ -62,7 +62,7 @@ let dataHandler = {
     getBoard: function(boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
         let boards = this.getBoards
-        
+
         for (let i = 0; i < boards.length; i++) {
             if (boards[i].id === boardId) {
                 if (callback) {
@@ -94,8 +94,8 @@ let dataHandler = {
 
     getStatus: function(statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
-        let statuses = this.getStatuses 
-        
+        let statuses = this.getStatuses
+
         for (let i = 0; i < statuses.length; i++) {
             if (statuses[i].statusId === statusId) {
                 if (callback) {
@@ -111,12 +111,15 @@ let dataHandler = {
 
     getCardsByBoardId: function(boardId, callback) {
         // the cards are retrieved and then the callback function is called with the cards
+
         let results = [];
         let cards = this._data.cards;
-
+        console.log("cards", cards);
         for (let i = 0; i < cards.length; i++) {
-            if (cards[i].boardId === boardId) {
+            if (cards[i].board_id === boardId) {
                 results.push(cards[i]);
+                console.log("results", results);
+                console.log("cards", cards);
             }
         }
 
@@ -132,7 +135,7 @@ let dataHandler = {
         }
     },
 
-    
+
     getCard: function(cardId, callback) {
         // the card is retrieved and then the callback function is called with the card
         let cards = this._data.cards;
