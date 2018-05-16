@@ -146,7 +146,7 @@ let dataHandler = {
 
     createNewBoard: function(boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
-        let boards = this.getBoards();
+        let boards = this._data.boards;
         let newId = boards[boards.length - 1].id + 1;
 
         boards.forEach(board => {

@@ -150,7 +150,6 @@ menuButtons = function () {
     }
     saveBoardName.addEventListener('click', function(){
         let newBoardName = boardName.value;
-        console.log(newBoardName);
         if (newBoardName == ''){
             alert("Please insert something");
         } else {
