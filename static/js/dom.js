@@ -44,7 +44,7 @@ let dom = {
             statuses.forEach(function(status) {
                 let newStatus = document.createElement("div");
                 newStatus.id = "board-" + boards[i].id + "-status-" + status.id;
-                newStatus.className = "col";
+                newStatus.className = "col text-center";
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
                 let cardsWindowHeight = cardsWindow.offsetHeight + 40;
@@ -93,12 +93,12 @@ let dom = {
 
             if (cards[c].status_id === i) {
                 let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
-                let cardDiv =  document.createElement("div");
+                let cardButt =  document.createElement("button");
                 let txt = document.createTextNode(cards[c]["title"]);
-                cardDiv.className = "card";
-                cardDiv.id = cards[c].id;
-                cardDiv.appendChild(txt);
-                statusDiv.appendChild(cardDiv);
+                cardButt.classList.add('cards', 'btn', 'btn-default', "center-block");
+                cardButt.id = "board-" + boardId + "-card-" + cards[c].id;
+                cardButt.appendChild(txt);
+                statusDiv.appendChild(cardButt);
             };
           };
         };
