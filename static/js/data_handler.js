@@ -114,12 +114,9 @@ let dataHandler = {
 
         let results = [];
         let cards = this._data.cards;
-        console.log("cards", cards);
         for (let i = 0; i < cards.length; i++) {
             if (cards[i].board_id === boardId) {
                 results.push(cards[i]);
-                console.log("results", results);
-                console.log("cards", cards);
             }
         }
 

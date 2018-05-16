@@ -94,8 +94,7 @@ let dom = {
     },
     showCards: function(boardId, cards) {
       if (cards == null) {
-        console.log("There are no cards connected with this board")
-        return;
+        return null;
       } else {
       let statuses = dataHandler.getStatuses();
 
