@@ -31,6 +31,12 @@ let dataHandler = {
         localStorage.setItem(this.keyInLocalStorage, JSON.stringify(this._data));
     },
 
+    changeStatus: function(id){
+        let boards = this._data.boards;
+        let board = boards[id-1]
+        let status = !board.is_active;
+        board['is_active'] = status;
+    },
 
     init: function() {
         this._loadData();
