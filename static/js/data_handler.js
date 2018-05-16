@@ -109,7 +109,7 @@ let dataHandler = {
         let cards = this._data.cards;
 
         for (let i = 0; i < cards.length; i++) {
-            if (cards[i].boardId === boardId) {
+            if (cards[i].board_id === boardId) {
                 results.push(cards[i]);
             }
         }
