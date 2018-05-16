@@ -62,17 +62,14 @@ let dom = {
 
             boardsDiv.appendChild(boardBox);
 
-            titleButton.addEventListener('click', function(e) {
+            titleButton.onclick = function(e) {
                 e.preventDefault();
-                if (e.className == 'btn-block') {
-                    e.preventDefault();
-                    let id = e.srcElement.id;
-                    let board = boards[i];
-                    if (board.is_active) {
-                        dom.showBoard(board);
-                    }
+                let id = e.srcElement.id;
+                let board = boards[i];
+                if (board.is_active) {
+                    dom.showBoard(board);
                 }
-            });
+            };
         }
     },
     loadCards: function(boardId) {
@@ -148,9 +145,8 @@ menuButtons = function () {
             modal.style.display = "none";
         }
     }
-    saveBoardName.addEventListener('click', function(){
+    saveBoardName.onclick = function(){
         let newBoardName = boardName.value;
-        console.log(newBoardName);
         if (newBoardName == ''){
             alert("Please insert something");
         } else {
@@ -159,7 +155,7 @@ menuButtons = function () {
             dom.loadBoards();
             boardName.value = '';
         }
-    });
+    };
 
 };
 
