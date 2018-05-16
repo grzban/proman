@@ -10,6 +10,7 @@ let dom = {
     showBoard: function(board) {
         let boardId = board.id;
         let cards = this.loadCards(boardId);
+        this.showCards(boardId, cards);
         alert("Show board: " + cards.id);
     },
     showBoards: function (boards) {
@@ -64,7 +65,7 @@ let dom = {
 
             titleButton.onclick = function(e) {
                 e.preventDefault();
-                let id = e.srcElement.id;
+                let id = e.target.id; //changed due to FF bugs
                 let board = boards[i];
                 if (board.is_active) {
                     dom.showBoard(board);
@@ -82,20 +83,23 @@ let dom = {
           }
     },
     showCards: function(boardId, cards) {
-        let statuses = dataHandler.getStatuses();
-        for (i = 1; i <= statuses.length; i++) {
-            if (cards[i-1].board_id === i) {
-              let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
-              let cardDiv =  document.createElement("div");
-              let txt = document.createTextNode(cards[i-1]["title"]);
-              cardDiv.className = "card";
-              cardDiv.id = cards[i-1].id;
-              dom.appendToElement(cardDiv, txt);
-              dom.appendToElement(statusDiv, cardDiv);
+      let statuses = dataHandler.getStatuses();
 
-          }
-        }
+      for (i = 1; i <= statuses.length; i++) {
+          for (c = 0; c< cards.length; c++) {
 
+            if (cards[c].status_id === i) {
+                let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
+                let cardDiv =  document.createElement("div");
+                let txt = document.createTextNode(cards[c]["title"]);
+                cardDiv.className = "card";
+                cardDiv.id = cards[c].id;
+                cardDiv.appendChild(txt);
+                statusDiv.appendChild(cardDiv);
+          };
+        };
+      };
+    };
 
         // shows the cards of a board
         // it adds necessary event listeners also
@@ -119,13 +123,6 @@ let dom = {
 }
 
 menuButtons = function () {
-    /*var addBoard = document.getElementById('addBoard');
-    var listBoards = document.getElementById('listBoards');
-    addBoard.onclick = function () {
-        var newName = prompt("Name your new board:")
-        dataHandler.createNewBoard(newName);
-        dom.loadBoards();
-    };*/
 
     let modal = document.getElementById('addNewBoardForm');
     let btn = document.getElementById("addNewBoardButton");
