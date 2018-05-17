@@ -55,9 +55,11 @@ let dom = {
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
             titleButton.className = "btn-primary";
             titleButton.style.width = "100%";
+            titleButton.style.margin = "10px";
             let cardButton = document.createElement("button");
             cardButton.className = "btn-warning";
             cardButton.style.fontSize = "12px";
+            cardButton.style.margin = "5px";
             cardButton.id = "card-" + boards[i]["id"] + "-btn";
 
                 boardBox.appendChild(titleButton);
@@ -81,8 +83,11 @@ let dom = {
                 newStatus.className = "col text-center";
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
-                let cardsWindowHeight = cardsWindow.offsetHeight + 40;
-                cardsWindow.style.height = cardsWindowHeight + "px";
+                cardsWindow.className = "droparea";
+                cardsWindow.classList.add("flex-container");
+                cardsWindow.setAttribute("ondragover", "allowDrop(event)");
+                cardsWindow.setAttribute("ondrop", "drop(event)");
+                cardsWindow.style.minHeight = "40px";
                 let newStatusHeader = document.createElement("h5");
                 newStatusHeader.style.textAlign = "center";
                 let newStatusTitle = document.createTextNode(status.name);
@@ -141,9 +146,13 @@ let dom = {
                 let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
                 let cardButt =  document.createElement("button");
                 let txt = document.createTextNode(cards[c]["title"]);
-                cardButt.classList.add('cards', 'btn', 'btn-default', "center-block");
+                cardButt.classList.add('cards', 'btn', 'btn-default', "center-block", "flex-item");
                 cardButt.id = "board-" + boardId + "-card-" + cards[c].id;
                 cardButt.appendChild(txt);
+                cardButt.draggable = true;
+                cardButt.setAttribute("ondragstart", "drag(event)");
+                cardButt.style.margin = "5px";
+                cardButt.style.flexDirection = "column";
                 statusDiv.appendChild(cardButt);
             };
           };
@@ -209,3 +218,21 @@ menuButtons = function () {
 };
 
 menuButtons()
+
+// Drag & drop
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    if (ev.target.classList.contains("droparea")) {
+        let data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+}
