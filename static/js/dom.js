@@ -159,16 +159,17 @@ let dom = {
         cardButt.appendChild(cardButtHeader);
         cardButtHeader.appendChild(txt);
         statusDiv.appendChild(cardButt);
-        cardButt.onclick = function (e) {
-            dom.editCard(e.target.id);
+        let modCardId = cardButt.id;
+        cardButt.onclick = function () {
+            dom.editCard(modCardId);
         };
       },
 
 
 
     editCard: function(targetId) {
-        let boardId = targetId.slice(0, targetId.indexOf('card')).replace( /\D+/g, '');
-        let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
+        let boardId = targetId.slice(6, 7);
+        let cardId = targetId.slice(13);
 
         let modal = document.getElementById('editCardForm');
         modal.style.display = "block";
@@ -183,7 +184,6 @@ let dom = {
 
         saveButton.onclick = function () {
             let newCardName = cardName.value;
-            console.log(newCardName);
             if (newCardName == '') {
                 alert("Please insert something");
             } else {
