@@ -116,11 +116,10 @@ let dataHandler = {
         let results = [];
         let cards = this._data.cards;
         for (let i = 0; i < cards.length; i++) {
-            if (cards[i].board_id === boardId) {
+            if (cards[i].board_id == boardId) {
                 results.push(cards[i]);
             }
         }
-
         if (results.length === 0) {
             return null;
         } else {
@@ -222,7 +221,7 @@ let dataHandler = {
             "title": card.title,
             "board_id": parseInt(newBoardId),
             "status_id": parseInt(newStatus),
-            "order": card.order
+            "order": this.getOrderForNewCard(newBoardId)
         };
         this._saveData();
         if (callback) {
