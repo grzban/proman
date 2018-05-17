@@ -1,10 +1,18 @@
 // It uses data_handler.js to visualize elements
 let dom = {
+    showWarning: function(){
+        let warning = document.getElementById('warning');
+        let span = document.getElementsByClassName("close")[3];
+        warning.style.display = "block";
+        span.onclick = function() {
+            warning.style.display = "none";
+        }
+    },
     addNewCardForm: function(id){
         let modal = document.getElementById('addNewCardForm');
         modal.style.display = "block";
 
-        let span = document.getElementsByClassName("close")[1];
+        let span = document.getElementsByClassName("close")[2];
         span.onclick = function() {
             modal.style.display = "none";
         };
@@ -12,8 +20,9 @@ let dom = {
         let saveButton = document.getElementById("saveCardName");
         saveButton.onclick = function () {
             let newCardName = cardName.value;
-            if (newCardName == '') {
-                alert("Please insert something");
+            console.log(newCardName);
+            if (newCardName === '') {
+                dom.showWarning();
             } else {
                 modal.style.display = "none";
                 dataHandler.createNewCard(newCardName, id, 1);
@@ -185,7 +194,7 @@ let dom = {
         saveButton.onclick = function () {
             let newCardName = cardName.value;
             if (newCardName == '') {
-                alert("Please insert something");
+                dom.showWarning();
             } else {
                 modal.style.display = "none";
                 dataHandler._data.cards.find(card => card.id == cardId).title = newCardName;
@@ -240,15 +249,19 @@ menuButtons = function () {
     saveBoardName.onclick = function(){
         let newBoardName = boardName.value;
         if (newBoardName == '') {
-            alert("Please insert something");
-        };
-        if (dataHandler._data.boards.find(function (obj) {return obj.title == newBoardName; })){
-                alert("Please choose a unique title for your board!");
+            dom.showWarning();
+
         } else {
-            modal.style.display = "none";
-            dataHandler.createNewBoard(newBoardName);
-            dom.loadBoards();
-            boardName.value = '';
+            if (dataHandler._data.boards.find(function (obj) {
+                return obj.title == newBoardName;
+            })) {
+                dom.showWarning();
+            } else {
+                modal.style.display = "none";
+                dataHandler.createNewBoard(newBoardName);
+                dom.loadBoards();
+                boardName.value = '';
+            }
         }
     };
 
