@@ -175,9 +175,9 @@ let dom = {
             cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
             var newTitle = prompt("Rename your card");
             if (newTitle != "") {
-            dataHandler._data.cards.find(card => card.id == cardId).title = newTitle;
-            dataHandler._saveData();
-            location.reload();
+              dataHandler._data.cards.find(card => card.id == cardId).title = newTitle;
+              dataHandler._saveData();
+              location.reload();
             } else {
         };
       },
