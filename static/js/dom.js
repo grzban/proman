@@ -17,15 +17,11 @@ let dom = {
             if (newCardName == '') {
                 alert("Please insert something");
             } else {
-                if (dataHandler._data.cards.find(function (obj) {
-                    return obj.title == newCardName; })){
-                    alert("Please choose a unique title for your card!");
-                } else {
-                    modal.style.display = "none";
-                    dataHandler.createNewCard(newCardName, id, 1);
-                    dom.loadCards(id);
-                    cardName.value = '';
-                }
+                modal.style.display = "none";
+                dataHandler.createNewCard(newCardName, id, 1);
+                dom.loadBoards();
+                cardName.value = '';
+
             }
         }
     },
