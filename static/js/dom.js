@@ -140,7 +140,7 @@ let dom = {
             let statuses = dataHandler.getStatuses();
             cards.sort(function sortByOrder(a, b) {
                return a.order - b.order
-            });
+            }); 
 
             for (i = 1; i <= statuses.length; i++) {
                 for (c = 0; c< cards.length; c++) {
