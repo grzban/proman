@@ -43,6 +43,7 @@
                                 <input type="button" id="saveBoardName" value="Save">
                             </form>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,6 +51,23 @@
     <article>
         <div class="jumbotron">
             <div id="boards" class="container">Boards are loading...</div>
+        </div>
+        <div id="addNewCardForm" class="modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Card</h5>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <p>Insert your new card title, please.</p>
+                        <form method="post">
+                            <input type="text" id="cardName">
+                            <input type="button" id="saveCardName" value="ADD">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </article>
     <footer>

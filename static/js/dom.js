@@ -1,5 +1,34 @@
 // It uses data_handler.js to visualize elements
 let dom = {
+    addNewCardForm: function(id){
+        let modal = document.getElementById('addNewCardForm');
+        modal.style.display = "block";
+
+        let span = document.getElementsByClassName("close")[1];
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        let cardName = document.getElementById('cardName');
+        let saveButton = document.getElementById("saveCardName");
+        console.log(id);
+        saveButton.onclick = function () {
+            let newCardName = cardName.value;
+            if (newCardName == '') {
+                alert("Please insert something");
+            } else {
+                if (dataHandler._data.cards.find(function (obj) {
+                    return obj.title == newCardName; })){
+                    alert("Please choose a unique title for your card!");
+                } else {
+                    modal.style.display = "none";
+                    dataHandler.createNewCard(newCardName, id, 1);
+                    dom.loadCards(id);
+                    cardName.value = '';
+                }
+            }
+        }
+    },
     loadBoards: function() {
         let boards = dataHandler.getBoards();
         return this.showBoards(boards);
@@ -84,9 +113,8 @@ let dom = {
             };
 
             let addCardButton = document.getElementById("card-" + id + "-btn");
-            console.log(id + " " + addCardButton);
-            addCardButton.onclick = function () {
-                alert("Hello");
+            addCardButton.onclick = function (event) {
+                dom.addNewCardForm(id);
             };
 
         }

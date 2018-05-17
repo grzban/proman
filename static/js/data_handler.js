@@ -177,13 +177,14 @@ let dataHandler = {
         // creates new card, saves it and calls the callback function with its data
         let cards = this._data.cards;
         let newId = cards[cards.length - 1].id + 1;
-
+        let order = this.getOrderForNewCard(boardId);
+        console.log(newId, cardTitle, boardId, statusId, order);
         cards.push({
             "id": newId,
             "title": cardTitle,
             "board_id": boardId,
             "status_id": statusId,
-            "order": this.getOrderForNewCard(boardId)
+            "order": order
         })
 
         this._saveData();
@@ -198,10 +199,11 @@ let dataHandler = {
     getOrderForNewCard: function(boardId) {
         let cards = this.getCardsByBoardId(boardId);
         let newOrder = 0;
-
-        for (let i = 0; i < cards.length; i++) {
-            if (cards[i].order > newOrder) {
-                newOrder = cards[i].order;
+        if (cards !== null){
+            for (let i = 0; i < cards.length; i++) {
+                if (cards[i].order > newOrder) {
+                    newOrder = cards[i].order;
+                }
             }
         }
 
