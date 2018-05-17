@@ -4,7 +4,6 @@ let dom = {
         let boards = dataHandler.getBoards();
         return this.showBoards(boards);
     },
-
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
@@ -31,8 +30,9 @@ let dom = {
             let cardButton = document.createElement("button");
             cardButton.className = "btn-warning";
             cardButton.style.fontSize = "12px";
+            cardButton.id = "card-" + boards[i]["id"] + "-btn";
 
-            boardBox.appendChild(titleButton);
+                boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoardContainer);
             singleBoardContainer.appendChild(cardButton);
             singleBoardContainer.appendChild(singleBoard);
@@ -68,6 +68,7 @@ let dom = {
             });
 
             boardsDiv.appendChild(boardBox);
+
             let cards = dom.loadCards(boards[i].id);
             dom.showCards(boards[i].id, cards);
 
@@ -84,6 +85,13 @@ let dom = {
                 dataHandler.changeStatus(id);
                 dom.loadBoards();
             };
+
+            let addCardButton = document.getElementById("card-" + id + "-btn");
+            console.log(id + " " + addCardButton);
+            addCardButton.onclick = function () {
+                alert("Hello");
+            };
+
         }
     },
     loadCards: function(boardId) {
