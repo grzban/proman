@@ -36,6 +36,7 @@ let dataHandler = {
         let board = boards[id-1]
         let status = !board.is_active;
         board['is_active'] = status;
+        this._saveData();
     },
 
     init: function() {
