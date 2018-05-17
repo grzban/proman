@@ -29,6 +29,7 @@
         <div class="container">
             <img src="{{ url_for('static', filename='image/logo.png') }}" id="proman" class="navbar-brand mb-0 h3"></img>
             <button class="btn-danger" id="addNewBoardButton">Add New Board</button>
+
             <div id="addNewBoardForm" class="modal">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -47,11 +48,7 @@
                 </div>
             </div>
         </div>
-    </nav>
-    <article>
-        <div class="jumbotron">
-            <div id="boards" class="container">Boards are loading...</div>
-        </div>
+
         <div id="addNewCardForm" class="modal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -86,6 +83,26 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="warning" class="modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Warning</h5>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <p>Check your data, please.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+    <article>
+        <div class="jumbotron">
+            <div id="boards" class="container">Boards are loading...</div>
         </div>
     </article>
     <footer>
