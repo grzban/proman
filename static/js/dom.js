@@ -285,8 +285,8 @@ function drop(ev) {
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
         let targetId = ev.target.parentElement.id;
-        let newBoardId = ev.target.parentElement.id.slice(0, targetId.indexOf('status')).replace( /\D+/g, '');
-        let newStatus = ev.target.parentElement.id.slice(targetId.indexOf('status')).replace( /\D+/g, '');
+        let newBoardId = targetId.slice(0, targetId.indexOf('status')).replace( /\D+/g, '');
+        let newStatus = targetId.slice(targetId.indexOf('status')).replace( /\D+/g, '');
         let id = data.slice(13);
         dataHandler.updateCard(id, newBoardId, newStatus);
     }
