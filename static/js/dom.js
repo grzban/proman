@@ -284,6 +284,7 @@ function drop(ev) {
     if (ev.target.classList.contains("droparea")) {
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
+        let targetId = ev.target.parentElement.id;
         let newBoardId = ev.target.parentElement.id.slice(0, targetId.indexOf('status')).replace( /\D+/g, '');
         let newStatus = ev.target.parentElement.id.slice(targetId.indexOf('status')).replace( /\D+/g, '');
         let id = data.slice(13);
