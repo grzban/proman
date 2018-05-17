@@ -132,39 +132,64 @@ let dom = {
               return null;
           }
     },
+
     showCards: function(boardId, cards) {
-      if (cards == null) {
-        return null;
-      } else {
-      let statuses = dataHandler.getStatuses();
+        if (cards != null) {
+            let statuses = dataHandler.getStatuses();
 
-      for (i = 1; i <= statuses.length; i++) {
-          for (c = 0; c< cards.length; c++) {
-
-            if (cards[c].status_id === i) {
-                let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
-                let cardButt =  document.createElement("button");
-                cardButt.draggable = true;
-                cardButt.setAttribute("ondragstart", "drag(event)");
-                cardButt.style.margin = "8px";
-                cardButt.style.flexDirection = "column";
-                cardButt.style.width = "100%";
-                let cardButtHeader = document.createElement("h8");
-                let txt = document.createTextNode(cards[c]["title"]);
-                cardButt.classList.add('cards', 'btn', 'btn-default', "block", "flex-item");
-                cardButt.id = "board-" + boardId + "-card-" + cards[c].id;
-                cardButt.appendChild(cardButtHeader);
-                cardButtHeader.appendChild(txt);
-                statusDiv.appendChild(cardButt);
+            for (i = 1; i <= statuses.length; i++) {
+                for (c = 0; c< cards.length; c++) {
+                if (cards[c].status_id === i) {
+                    dom.addCardToStatus(boardId, cards[c])
+              };
             };
           };
-        };
+
+      } else {
+          return null;
       };
     },
+
+
+
+    addCardToStatus: function(boardId, card) {
+        let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
+        let cardButt =  document.createElement("button");
+        cardButt.draggable = true;
+        cardButt.setAttribute("ondragstart", "drag(event)");
+        cardButt.style.margin = "8px";
+        cardButt.style.flexDirection = "column";
+        cardButt.style.width = "100%";
+        let cardButtHeader = document.createElement("h8");
+        let txt = document.createTextNode(card["title"]);
+        cardButt.classList.add('cards', 'btn', 'btn-default', "block", "flex-item");
+        cardButt.id = "board-" + boardId + "-card-" + card.id;
+        cardButt.appendChild(cardButtHeader);
+        cardButtHeader.appendChild(txt);
+        statusDiv.appendChild(cardButt);
+        cardButt.onclick = function (e) {
+            dom.editCard(e.target.id);
+        };
+      },
+
+
+
+    editCard: function(targetId) {
+            boardId = targetId.slice(0, targetId.indexOf('card')).replace( /\D+/g, '');
+            cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
+            var newTitle = prompt("Rename your card");
+            if (newTitle != "") {
+            dataHandler._data.cards.find(card => card.id == cardId).title = newTitle;
+            dataHandler._saveData();
+            location.reload();
+            } else {
+        };
+      },
 
         // shows the cards of a board
         // it adds necessary event listeners also
     appendToElement: function(elementToExtend, textToAppend, prepend = false) {
+
         // function to append new DOM elements (represented by a string) to an existing DOM element
         let fakeDiv = document.createElement('div');
         fakeDiv.innerHTML = textToAppend.trim();
