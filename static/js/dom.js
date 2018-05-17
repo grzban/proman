@@ -284,8 +284,8 @@ function drop(ev) {
     if (ev.target.classList.contains("droparea")) {
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
-        let newBoardId = ev.target.parentElement.id.slice(6, 7);
-        let newStatus = ev.target.parentElement.id.slice(15);
+        let newBoardId = ev.target.parentElement.id.slice(0, targetId.indexOf('status')).replace( /\D+/g, '');
+        let newStatus = ev.target.parentElement.id.slice(targetId.indexOf('status')).replace( /\D+/g, '');
         let id = data.slice(13);
         dataHandler.updateCard(id, newBoardId, newStatus);
     }
