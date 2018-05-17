@@ -85,7 +85,7 @@ let dom = {
                 newStatus.className = "col text-center";
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
-                cardsWindow.className = "droparea flex-container";
+                cardsWindow.className = "droparea";
                 cardsWindow.setAttribute("ondragover", "allowDrop(event)");
                 cardsWindow.setAttribute("ondrop", "drop(event)");
                 cardsWindow.style.minHeight = "40px";
@@ -141,11 +141,11 @@ let dom = {
 
             for (i = 1; i <= statuses.length; i++) {
                 for (c = 0; c< cards.length; c++) {
-                if (cards[c].status_id === i) {
-                    dom.addCardToStatus(boardId, cards[c])
-              };
+                    if (cards[c].status_id === i) {
+                        dom.addCardToStatus(boardId, cards[c])
+                    };
+                };
             };
-          };
 
       } else {
           return null;
@@ -160,25 +160,25 @@ let dom = {
         cardButt.draggable = true;
         cardButt.setAttribute("ondragstart", "drag(event)");
         cardButt.style.margin = "8px";
-        cardButt.style.flexDirection = "column";
         cardButt.style.width = "100%";
         let cardButtHeader = document.createElement("h8");
         let txt = document.createTextNode(card["title"]);
-        cardButt.classList.add('cards', 'btn', 'btn-default', "block", "flex-item");
+        cardButt.classList.add('cards', 'btn', 'btn-default', "block");
         cardButt.id = "board-" + boardId + "-card-" + card.id;
         cardButt.appendChild(cardButtHeader);
         cardButtHeader.appendChild(txt);
         statusDiv.appendChild(cardButt);
-        cardButt.onclick = function (e) {
-            dom.editCard(e.target.id);
+        let modCardId = cardButt.id;
+        cardButt.onclick = function () {
+            dom.editCard(modCardId);
         };
       },
 
 
 
     editCard: function(targetId) {
-        let boardId = targetId.slice(0, targetId.indexOf('card')).replace( /\D+/g, '');
-        let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
+        let boardId = targetId.slice(6, 7);
+        let cardId = targetId.slice(13);
 
         let modal = document.getElementById('editCardForm');
         modal.style.display = "block";
@@ -284,5 +284,9 @@ function drop(ev) {
     if (ev.target.classList.contains("droparea")) {
         let data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
+        let newBoardId = ev.target.parentElement.id.slice(6, 7);
+        let newStatus = ev.target.parentElement.id.slice(15);
+        let id = data.slice(13);
+        dataHandler.updateCard(id, newBoardId, newStatus);
     }
 }
