@@ -30,6 +30,7 @@ let dom = {
             let cardButton = document.createElement("button");
             cardButton.className = "btn-warning";
             cardButton.style.fontSize = "12px";
+            cardButton.style.margin = "5px";
             cardButton.id = "card-" + boards[i]["id"] + "-btn";
 
                 boardBox.appendChild(titleButton);
@@ -54,6 +55,7 @@ let dom = {
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
                 cardsWindow.className = "droparea";
+                cardsWindow.classList.add("flex-container");
                 cardsWindow.setAttribute("ondragover", "allowDrop(event)");
                 cardsWindow.setAttribute("ondrop", "drop(event)");
                 cardsWindow.style.minHeight = "40px";
@@ -116,11 +118,13 @@ let dom = {
                 let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
                 let cardButt =  document.createElement("button");
                 let txt = document.createTextNode(cards[c]["title"]);
-                cardButt.classList.add('cards', 'btn', 'btn-default', "center-block", "row");
+                cardButt.classList.add('cards', 'btn', 'btn-default', "center-block", "flex-item");
                 cardButt.id = "board-" + boardId + "-card-" + cards[c].id;
                 cardButt.appendChild(txt);
                 cardButt.draggable = true;
                 cardButt.setAttribute("ondragstart", "drag(event)");
+                cardButt.style.margin = "5px";
+                cardButt.style.flexDirection = "column";
                 statusDiv.appendChild(cardButt);
             };
           };
