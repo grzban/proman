@@ -83,8 +83,7 @@ let dom = {
                 newStatus.className = "col text-center";
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
-                cardsWindow.className = "droparea";
-                cardsWindow.classList.add("flex-container");
+                cardsWindow.className = "droparea flex-container";
                 cardsWindow.setAttribute("ondragover", "allowDrop(event)");
                 cardsWindow.setAttribute("ondrop", "drop(event)");
                 cardsWindow.style.minHeight = "40px";
@@ -146,7 +145,7 @@ let dom = {
                 let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
                 let cardButt =  document.createElement("button");
                 let txt = document.createTextNode(cards[c]["title"]);
-                cardButt.classList.add('cards', 'btn', 'btn-default', "center-block", "flex-item");
+                cardButt.classList.add('cards', 'btn', 'btn-default', "block", "flex-item");
                 cardButt.id = "board-" + boardId + "-card-" + cards[c].id;
                 cardButt.appendChild(txt);
                 cardButt.draggable = true;
