@@ -8,10 +8,8 @@ let dom = {
         span.onclick = function() {
             modal.style.display = "none";
         };
-
         let cardName = document.getElementById('cardName');
         let saveButton = document.getElementById("saveCardName");
-        console.log(id);
         saveButton.onclick = function () {
             let newCardName = cardName.value;
             if (newCardName == '') {
@@ -21,7 +19,6 @@ let dom = {
                 dataHandler.createNewCard(newCardName, id, 1);
                 dom.loadBoards();
                 cardName.value = '';
-
             }
         }
     },
@@ -171,16 +168,34 @@ let dom = {
 
 
     editCard: function(targetId) {
-            boardId = targetId.slice(0, targetId.indexOf('card')).replace( /\D+/g, '');
-            cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
-            var newTitle = prompt("Rename your card");
-            if (newTitle != "") {
-            dataHandler._data.cards.find(card => card.id == cardId).title = newTitle;
-            dataHandler._saveData();
-            location.reload();
-            } else {
+        let boardId = targetId.slice(0, targetId.indexOf('card')).replace( /\D+/g, '');
+        let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
+
+        let modal = document.getElementById('editCardForm');
+        modal.style.display = "block";
+
+        let span = document.getElementsByClassName("close")[2];
+        span.onclick = function() {
+            modal.style.display = "none";
         };
-      },
+
+        let cardName = document.getElementById('newCardName');
+        let saveButton = document.getElementById("saveNewCardName");
+
+        saveButton.onclick = function () {
+            let newCardName = cardName.value;
+            console.log(newCardName);
+            if (newCardName == '') {
+                alert("Please insert something");
+            } else {
+                modal.style.display = "none";
+                dataHandler._data.cards.find(card => card.id == cardId).title = newCardName;
+                dataHandler._saveData();
+                cardName.value = '';
+                location.reload();
+            }
+        }
+    },
 
         // shows the cards of a board
         // it adds necessary event listeners also
