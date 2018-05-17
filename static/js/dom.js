@@ -58,7 +58,7 @@ let dom = {
             cardButton.style.margin = "5px";
             cardButton.id = "card-" + boards[i]["id"] + "-btn";
 
-                boardBox.appendChild(titleButton);
+            boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoardContainer);
             singleBoardContainer.appendChild(cardButton);
             singleBoardContainer.appendChild(singleBoard);
@@ -128,14 +128,15 @@ let dom = {
               return null;
           }
     },
-    showCards: function(boardId, cards) {
-      if (cards != null) {
-        let statuses = dataHandler.getStatuses();
 
-        for (i = 1; i <= statuses.length; i++) {
-            for (c = 0; c< cards.length; c++) {
-              if (cards[c].status_id === i) {
-                dom.addCardToStatus(boardId, cards[c])
+    showCards: function(boardId, cards) {
+        if (cards != null) {
+            let statuses = dataHandler.getStatuses();
+
+            for (i = 1; i <= statuses.length; i++) {
+                for (c = 0; c< cards.length; c++) {
+                if (cards[c].status_id === i) {
+                    dom.addCardToStatus(boardId, cards[c])
               };
             };
           };
@@ -148,15 +149,22 @@ let dom = {
 
 
     addCardToStatus: function(boardId, card) {
-      let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
-      let cardButt =  document.createElement("button");
-      let txt = document.createTextNode(card["title"]);
-      cardButt.classList.add('cards', 'btn', 'btn-default', "center-block");
-      cardButt.id = "board-" + boardId + "-card-" + card.id;
-      cardButt.appendChild(txt);
-      statusDiv.appendChild(cardButt);
-      cardButt.onclick = function (e) {
-        dom.editCard(e.target.id);
+        let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
+        let cardButt =  document.createElement("button");
+        cardButt.draggable = true;
+        cardButt.setAttribute("ondragstart", "drag(event)");
+        cardButt.style.margin = "8px";
+        cardButt.style.flexDirection = "column";
+        cardButt.style.width = "100%";
+        let cardButtHeader = document.createElement("h8");
+        let txt = document.createTextNode(card["title"]);
+        cardButt.classList.add('cards', 'btn', 'btn-default', "block", "flex-item");
+        cardButt.id = "board-" + boardId + "-card-" + card.id;
+        cardButt.appendChild(cardButtHeader);
+        cardButtHeader.appendChild(txt);
+        statusDiv.appendChild(cardButt);
+        cardButt.onclick = function (e) {
+            dom.editCard(e.target.id);
         };
       },
 
