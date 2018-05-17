@@ -62,7 +62,7 @@ let dom = {
             cardButton.style.margin = "5px";
             cardButton.id = "card-" + boards[i]["id"] + "-btn";
 
-                boardBox.appendChild(titleButton);
+            boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoardContainer);
             singleBoardContainer.appendChild(cardButton);
             singleBoardContainer.appendChild(singleBoard);
@@ -144,14 +144,17 @@ let dom = {
             if (cards[c].status_id === i) {
                 let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
                 let cardButt =  document.createElement("button");
+                cardButt.draggable = true;
+                cardButt.setAttribute("ondragstart", "drag(event)");
+                cardButt.style.margin = "8px";
+                cardButt.style.flexDirection = "column";
+                cardButt.style.width = "100%";
+                let cardButtHeader = document.createElement("h8");
                 let txt = document.createTextNode(cards[c]["title"]);
                 cardButt.classList.add('cards', 'btn', 'btn-default', "block", "flex-item");
                 cardButt.id = "board-" + boardId + "-card-" + cards[c].id;
-                cardButt.appendChild(txt);
-                cardButt.draggable = true;
-                cardButt.setAttribute("ondragstart", "drag(event)");
-                cardButt.style.margin = "5px";
-                cardButt.style.flexDirection = "column";
+                cardButt.appendChild(cardButtHeader);
+                cardButtHeader.appendChild(txt);
                 statusDiv.appendChild(cardButt);
             };
           };
