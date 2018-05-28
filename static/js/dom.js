@@ -94,7 +94,12 @@ let dom = {
 
             boardsDiv.appendChild(boardBox);
 
-            let cards = document.getElementById("user-cards");
+            
+            
+
+            
+            
+            let cards = JSON.parse(document.getElementById("user-cards").value);
             dom.showCards(boards[i].id, cards);
 
             titleButton.addEventListener("click", function() {
