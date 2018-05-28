@@ -41,6 +41,7 @@ let dom = {
             let singleBoardContainer = document.createElement("div");
             singleBoardContainer.id = "board-" + boards[i].id;
             singleBoardContainer.classList.add("board-view");
+            singleBoardContainer.style.display = "none";
 
             let singleBoard = document.createElement("div");
             singleBoard.id = "board-" + boards[i].id + "-container";
@@ -103,7 +104,7 @@ let dom = {
             dom.showCards(boards[i].id, cards);
 
             titleButton.addEventListener("click", function() {
-                if (singleBoardContainer.style.display = "none") {
+                if (singleBoardContainer.style.display == "none") {
                     singleBoardContainer.style.display = "block"
                 } else {
                     singleBoardContainer.style.display = "none";
