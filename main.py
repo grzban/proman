@@ -10,7 +10,8 @@ def boards():
     ''' this is a one-pager which shows all the boards and cards '''
     if "username" in session:
         username = session["username"]
-        return render_template("boards.html", username=username)
+        user_id = data_manager.get_user_id(username)
+        return render_template("boards.html", username=username, user_id=user_id)
     else:
         return render_template("boards.html")
 

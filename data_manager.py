@@ -33,3 +33,15 @@ def login(cursor, username, password):
     if check_password_hash(user['password'], password):
         return user['username']
     return None
+
+
+@database_connector.connection_handler
+def get_user_id(cursor, username):
+    if is_user_in_database(username):
+        cursor.execute("""
+                        SELECT id FROM accounts
+                        WHERE LOWER(username) = LOWER(%(username)s)
+                        """, {'username': username})
+        user_id = cursor.fetchall()[0]
+        return user_id
+    return None
