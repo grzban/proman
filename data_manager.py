@@ -33,3 +33,13 @@ def login(cursor, username, password):
     if check_password_hash(user['password'], password):
         return user['username']
     return None
+
+
+@database_connector.connection_handler
+def delete_from_table(cursor, table, column, value):
+    cursor.execute("""
+                    DELETE FROM {0}
+                    WHERE {1} = {2}
+                    """.format(table, column, value))
+
+    return None
