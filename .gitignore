@@ -137,3 +137,6 @@ fabric.properties
 ### Environment variable script ###
 setenv.sh
 setenv.ps1
+
+
+database_connector.py

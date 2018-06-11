@@ -140,7 +140,7 @@ let dom = {
             let statuses = dataHandler.getStatuses();
             cards.sort(function sortByOrder(a, b) {
                return a.order - b.order
-            }); 
+            });
 
             for (i = 1; i <= statuses.length; i++) {
                 for (c = 0; c< cards.length; c++) {
@@ -173,6 +173,7 @@ let dom = {
         statusDiv.appendChild(cardButt);
         let modCardId = cardButt.id;
         cardButt.onclick = function () {
+
             dom.editCard(modCardId);
         };
       },
@@ -180,19 +181,18 @@ let dom = {
 
 
     editCard: function(targetId) {
-        let boardId = targetId.slice(0, targetId.indexOf('card')).replace( /\D+/g, '');
         let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
-
         let modal = document.getElementById('editCardForm');
         modal.style.display = "block";
 
-        let span = document.getElementsByClassName("close")[2];
+        let span = modal.getElementsByClassName("close")[0];
         span.onclick = function() {
             modal.style.display = "none";
         };
 
         let cardName = document.getElementById('newCardName');
         let saveButton = document.getElementById("saveNewCardName");
+        let deleteButton = document.getElementById("deleteCard");
 
         saveButton.onclick = function () {
             let newCardName = cardName.value;
@@ -205,7 +205,11 @@ let dom = {
                 cardName.value = '';
                 location.reload();
             }
-        }
+          }
+
+            deleteButton.onclick = function () {
+                modal.style.display = "none";
+                }
     },
 
         // shows the cards of a board

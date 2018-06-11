@@ -27,7 +27,7 @@
     </head>
     <body>
     <nav class="navbar navbar-inverse" role="navigation">
-        
+
         <!-- Modal for login purposes -->
         <div class="modal modal-backdrop" id="login-modal" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -80,7 +80,7 @@
 
         <div class="container">
             <img src="{{ url_for('static', filename='image/logo.png') }}" id="proman" class="navbar-brand mb-0 h3"></img>
-            
+
             <!-- Login and sign up buttons -->
             <input value="{{ username }}" id="username" hidden>
             <div id="login-buttons">
@@ -142,13 +142,21 @@
                         <h5 class="modal-title">Edit Card</h5>
                         <span class="close">&times;</span>
                     </div>
-                    <div class="modal-body">
-                        <p>Insert new card title, please.</p>
-                        <form method="post">
-                            <input type="text" id="newCardName">
-                            <input type="button" id="saveNewCardName" value="Save">
-                        </form>
-                    </div>
+                    <div class ="container">
+                      <div class="modal-body">
+
+                          <div class="row">
+                            <div class="col-sm">
+                                    <p>Insert new title and save</p>
+                                    <input type="text" id="newCardName">
+                                    <input type="button" id="saveNewCardName" value="Edit and Save">
+                            </div>
+                            <div class="col-sm">
+                                    <p>or delete your card</p><br/>
+                                    <input type="button" id="deleteCard" value="Delete">
+                            </div>
+                      </div>
+                  </div>
                 </div>
             </div>
         </div>
