@@ -55,11 +55,11 @@ let dom = {
 
             let titleButton = document.createElement("button");
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
-            titleButton.className = "btn-primary";
+            titleButton.classList.add("btn", "btn-primary");
             titleButton.style.width = "100%";
             titleButton.style.margin = "10px";
             let cardButton = document.createElement("button");
-            cardButton.className = "btn-warning";
+            cardButton.classList.add("btn", "btn-warning");
             cardButton.style.fontSize = "12px";
             cardButton.style.margin = "5px";
             cardButton.id = "card-" + boards[i]["id"] + "-btn";
@@ -292,5 +292,31 @@ function drop(ev) {
         let newStatus = targetId.slice(targetId.indexOf('status')).replace( /\D+/g, '');
         let id = data.slice(13);
         dataHandler.updateCard(id, newBoardId, newStatus);
+    }
+}
+
+function showLoginModal() {
+    let loginModal = document.getElementById("login-modal");
+    loginModal.style.display = "block";
+    document.getElementById("close-login-modal").addEventListener("click", function() {
+        loginModal.style.display = "none";
+    })
+    window.onclick = function(event) {
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
+        }
+    }
+}
+
+function showSignupModal() {
+    let signupModal = document.getElementById("signup-modal");
+    signupModal.style.display = "block";
+    document.getElementById("close-signup-modal").addEventListener("click", function() {
+        signupModal.style.display = "none";
+    })
+    window.onclick = function(event) {
+        if (event.target == signupModal) {
+            signupModal.style.display = "none";
+        }
     }
 }

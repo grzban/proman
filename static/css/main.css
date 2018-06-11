@@ -1,3 +1,19 @@
-#boards {
-    background-color: green;
+.modal {
+    display: none;
+}
+
+.modal-backdrop {
+    background-color: gray;
+    opacity: 0.9;
+}
+
+#login-button, #signup-button {
+    position: relative;
+    left: 85%;
+}
+
+#logout-button {
+    position: relative;
+    display: inline;
+    left: 1%;
 }
