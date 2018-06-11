@@ -44,4 +44,12 @@ def get_user_id(cursor, username):
                         """, {'username': username})
         user_id = cursor.fetchall()[0]
         return user_id
+
+
+def delete_from_table(cursor, table, column, value):
+    cursor.execute("""
+                    DELETE FROM {0}
+                    WHERE {1} = {2}
+                    """.format(table, column, value))
+
     return None
