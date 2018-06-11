@@ -2,15 +2,19 @@ from flask import Flask, render_template, session, request, redirect, url_for
 import data_manager
 
 app = Flask(__name__)
-app.secret_key = "codecoolSux"
+app.secret_key = "CalmDownSatan"
 
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def boards():
     ''' this is a one-pager which shows all the boards and cards '''
     if "username" in session:
         username = session["username"]
         user_id = data_manager.get_user_id(username)
+        if request.method == "POST":
+            deleted_card_id = request.form['delCardNum']
+            data_manager.delete_from_table('cards', 'id', deleted_card_id)
+
         return render_template("boards.html", username=username, user_id=user_id)
     else:
         return render_template("boards.html")

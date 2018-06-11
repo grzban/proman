@@ -149,11 +149,14 @@
                             <div class="col-sm">
                                     <p>Insert new title and save</p>
                                     <input type="text" id="newCardName">
-                                    <input type="button" id="saveNewCardName" value="Edit and Save">
+                                    <button type="submit" id="saveNewCardName" value="EditAndSave">Save</button>
                             </div>
                             <div class="col-sm">
                                     <p>or delete your card</p><br/>
-                                    <input type="button" id="deleteCard" value="Delete">
+                                    <form action={{ url_for('boards') }}  method="post" id="deleteCards">
+                                    <input type="text" id="deletedCardNum" name='delCardNum' hidden></input>
+                                    <button type="submit" id="deleteCard" form="deleteCards" value="Submit">Delete</button>
+                                    </form>
                             </div>
                       </div>
                   </div>

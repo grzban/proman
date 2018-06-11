@@ -208,6 +208,8 @@ let dom = {
           }
 
             deleteButton.onclick = function () {
+                // changes form value to card id 
+                document.getElementById("deletedCardNum").value = cardId.toString();
                 modal.style.display = "none";
                 }
     },
