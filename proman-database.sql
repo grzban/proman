@@ -13,12 +13,15 @@ CREATE TABLE cards (
     id serial NOT NULL PRIMARY KEY,
     board_id INTEGER,
     status_id INTEGER,
-    title VARCHAR
+    title VARCHAR,
+    FOREIGN KEY (board_id) REFERENCES boards(id)
 );
 
 CREATE TABLE boards_accounts (
     account_id INTEGER,
-    board_id INTEGER
+    board_id INTEGER,
+    FOREIGN KEY (account_id) REFERENCES accounts(id),
+    FOREIGN KEY (board_id) REFERENCES boards(id)
 );
 
 ALTER TABLE ONLY cards

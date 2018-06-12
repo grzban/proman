@@ -11,11 +11,11 @@ def boards():
     if "username" in session:
         username = session["username"]
         user_id = data_manager.get_user_id(username)
+        boards = data_manager.get_boards(username)
         if request.method == "POST":
-            deleted_card_id = request.form['delCardNum']
-            data_manager.delete_from_table('cards', 'id', deleted_card_id)
-
-        return render_template("boards.html", username=username, user_id=user_id)
+            deleted_card_id = request.form["delCardNum"]
+            data_manager.delete_from_table("cards", "id", deleted_card_id)
+        return render_template("boards.html", username=username, user_id=user_id, boards=boards)
     else:
         return render_template("boards.html")
 
@@ -50,6 +50,14 @@ def signup():
 def logout():
     session.pop("username", None)
     return redirect(url_for("boards"))
+
+
+@app.route("/save-board", methods=["POST"])
+def save_board():
+    board = request.form["boardName"]
+    username = session["username"]
+    user_id = data_manager.get_user_id(username)
+    data_manager.add_board(board, user_id)
 
 
 def main():

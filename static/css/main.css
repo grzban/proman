@@ -9,7 +9,6 @@
 
 #login-button, #signup-button {
     position: relative;
-    left: 85%;
 }
 
 #logout-button {
