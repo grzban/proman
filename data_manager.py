@@ -81,7 +81,7 @@ def delete_from_table(cursor, table, column, value):
     cursor.execute("""
                     DELETE FROM %s
                     WHERE %s = %s
-                    """, (table, colume, value))
+                    """, (table, column, value))
 
     return None
 
