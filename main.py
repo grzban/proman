@@ -57,7 +57,7 @@ def save_board():
     board = request.form["new-board-title"]
     username = session["username"]
     user_id = data_manager.get_user_id(username)
-    if data_manager.is_board_name_in_use(board, user_id):
+    if not data_manager.is_board_name_in_use(board, user_id):
         data_manager.add_board(board, user_id)
     return redirect(url_for("boards"))
 

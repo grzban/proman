@@ -1,5 +1,6 @@
 import database_connector
 import data_handler
+import psycopg2.sql as sql
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -63,12 +64,15 @@ def get_board_ids(cursor, username):
 def get_boards(cursor, username):
     board_ids = get_board_ids(username)
     if board_ids:
-        cursor.execute("""
+        boards = data_handler.get_board_ids_out(board_ids)
+        query = sql.SQL("""
                         SELECT * FROM boards
-                        WHERE id IN (%s)
-                        """, tuple(data_handler.get_board_ids_out(board_ids)))
-        boards = cursor.fetchall()
-        return boards
+                        WHERE id IN ({vals})
+                        """).format(
+                            vals=sql.SQL(", ").join(sql.Placeholder()*len(boards)))
+        cursor.execute(query, boards)
+        new_boards = cursor.fetchall()
+        return new_boards
     return None
 
 
@@ -89,6 +93,7 @@ def is_board_name_in_use(cursor, board, user_id):
                     LEFT JOIN boards_accounts ON boards.id = boards_accounts.board_id
                     WHERE boards_accounts.account_id = %s AND boards.title = %s
                     """, (user_id, board))
+    return cursor.fetchall()
 
 
 @database_connector.connection_handler
