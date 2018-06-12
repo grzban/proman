@@ -246,9 +246,10 @@ menuButtons = function () {
     let span = document.getElementById("addNewBoardClose");
     let boardName = document.getElementById('boardName');
     let saveBoardName = document.getElementById('saveBoardName');
-
-    btn.onclick = function() {
-        modal.style.display = "block";
+    if (btn != null) {
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
     }
     span.onclick = function() {
         modal.style.display = "none";
