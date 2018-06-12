@@ -54,10 +54,12 @@ def logout():
 
 @app.route("/save-board", methods=["POST"])
 def save_board():
-    board = request.form["boardName"]
+    board = request.form["new-board-title"]
     username = session["username"]
     user_id = data_manager.get_user_id(username)
-    data_manager.add_board(board, user_id)
+    if data_manager.is_board_name_in_use(board, user_id):
+        data_manager.add_board(board, user_id)
+    return redirect(url_for("boards"))
 
 
 def main():

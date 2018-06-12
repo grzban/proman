@@ -65,8 +65,8 @@ def get_boards(cursor, username):
     if board_ids:
         cursor.execute("""
                         SELECT * FROM boards
-                        WHERE id IN (%(board_ids)s)
-                        """, {"board_ids": board_ids})
+                        WHERE id IN (%s)
+                        """, tuple(data_handler.get_board_ids_out(board_ids)))
         boards = cursor.fetchall()
         return boards
     return None
@@ -75,11 +75,20 @@ def get_boards(cursor, username):
 @database_connector.connection_handler
 def delete_from_table(cursor, table, column, value):
     cursor.execute("""
-                    DELETE FROM (%(table)s)
-                    WHERE (%(column)s) = (%(value)s)
-                    """, {"table": table, "column": column, "value": value})
+                    DELETE FROM %s
+                    WHERE %s = %s
+                    """, (table, colume, value))
 
     return None
+
+
+@database_connector.connection_handler
+def is_board_name_in_use(cursor, board, user_id):
+    cursor.execute("""
+                    SELECT boards.id FROM boards
+                    LEFT JOIN boards_accounts ON boards.id = boards_accounts.board_id
+                    WHERE boards_accounts.account_id = %s AND boards.title = %s
+                    """, (user_id, board))
 
 
 @database_connector.connection_handler
@@ -99,12 +108,12 @@ def get_board_id(cursor, board):
                     WHERE title = (%(board)s)
                     """, {"board": board})
     board_id = cursor.fetchall()
-    return board_id
+    return board_id[0]["id"]
 
 
 @database_connector.connection_handler
 def add_account_board_connection(cursor, user_id, board_id):
     cursor.execute("""
                     INSERT INTO boards_accounts
-                    VALUES ((%(user_id)s), (%(board_id)s))
-                    """, {"user_id": user_id, "board_id": board_id})
+                    VALUES (%s, %s)
+                    """, (user_id, board_id))
