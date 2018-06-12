@@ -26,159 +26,171 @@
         </style>
     </head>
     <body>
+
+    <!-- Modal for login purposes -->
+    <div class="modal modal-backdrop" id="login-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><b>Login</b></h2>
+                    <button type="button" id="close-login-modal" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form action="{{ url_for('login') }}" method="POST" id="login-form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="username-login"><b>Username</b></label><br>
+                            <input type="text" class="form-control" placeholder="Enter username" name="username-login"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password-login"><b>Password</b></label><br>
+                            <input type="password" class="form-control" placeholder="Enter password"
+                                   name="password-login" required>
+                        </div>
+                        <button type="submit" class="btn btn-info" id="login-accept-button">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for sign up purposes -->
+    <div class="modal modal-backdrop" id="signup-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><b>Sign up</b></h2>
+                    <button type="button" id="close-signup-modal" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form action="{{ url_for('signup') }}" method="POST" id="signup-form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="username-signup"><b>Username</b></label><br>
+                            <input type="text" class="form-control" placeholder="Enter username" name="username-signup"
+                                   pattern=".{3,}" required title="minimum 3 characters">
+                        </div>
+                        <div class="form-group">
+                            <label for="password-signup"><b>Password</b></label><br>
+                            <input type="password" class="form-control" placeholder="Enter password"
+                                   name="password-signup" pattern=".{3,}" required title="minimum 3 characters">
+                        </div>
+                        <button type="submit" class="btn btn-info" id="signup-accept-button">Signup</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--Add new board modal-->
+    <div id="addNewBoardForm" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Board</h5>
+                    <span class="close" id="addNewBoardClose">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Insert your new board name, please.</p>
+                    <form method="post">
+                        <input type="text" id="boardName">
+                        <input type="button" id="saveBoardName" value="Save">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add new card modal-->
+    <div id="addNewCardForm" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Card</h5>
+                    <span class="close" id="addNewCardFormClose">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Insert your new card title, please.</p>
+                    <form method="post">
+                        <input type="text" id="cardName">
+                        <input type="button" id="saveCardName" value="ADD">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit card modal-->
+    <div id="editCardForm" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Card</h5>
+                    <span class="close" id="editCardFormClose">&times;</span>
+                </div>
+                <div class="container">
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <p>Insert new title and save</p>
+                                <input type="text" id="newCardName">
+                                <button type="submit" id="saveNewCardName" value="EditAndSave">Save</button>
+                            </div>
+                            <div class="col-sm">
+                                <p>or delete your card</p><br/>
+                                <form action="{{ url_for('boards') }}" method="post" id="deleteCards">
+                                    <input type="text" id="deletedCardNum" name='delCardNum' hidden></input>
+                                    <button type="submit" id="deleteCard" form="deleteCards" value="Submit">Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Warning message modal-->
+    <div id="warning" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Warning</h5>
+                    <span class="close" id="warningClose">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Check your data, please.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <nav class="navbar navbar-inverse" role="navigation">
-
-        <!-- Modal for login purposes -->
-        <div class="modal modal-backdrop" id="login-modal" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title"><b>Login</b></h4>
-                        <button type="button" id="close-login-modal" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <form action="{{ url_for('login') }}" method="POST" id="login-form">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="username-login"><b>Username</b></label><br>
-                                <input type="text" class="form-control" placeholder="Enter username" name="username-login" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password-login"><b>Password</b></label><br>
-                                <input type="password" class="form-control" placeholder="Enter password" name="password-login" required>
-                            </div>
-                            <button type="submit" class="btn btn-info" id="login-accept-button">Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal for sign up purposes -->
-        <div class="modal modal-backdrop" id="signup-modal" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title"><b>Sign up</b></h2>
-                        <button type="button" id="close-signup-modal" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <form action="{{ url_for('signup') }}" method="POST" id="signup-form">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="username-signup"><b>Username</b></label><br>
-                                <input type="text" class="form-control" placeholder="Enter username" name="username-signup" pattern=".{3,}" required title="minimum 3 characters">
-                            </div>
-                            <div class="form-group">
-                                <label for="password-signup"><b>Password</b></label><br>
-                                <input type="password" class="form-control" placeholder="Enter password" name="password-signup" pattern=".{3,}" required title="minimum 3 characters">
-                            </div>
-                            <button type="submit" class="btn btn-info" id="signup-accept-button">Signup</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div class="container">
-            <img src="{{ url_for('static', filename='image/logo.png') }}" id="proman" class="navbar-brand mb-0 h3"></img>
+            <img src="{{ url_for('static', filename='image/logo.png') }}" id="proman"
+                 class="navbar-brand mb-0 h3"></img>
 
             <!-- Login and sign up buttons -->
             <input value="{{ username }}" id="username" hidden>
-            <input value="{{ boards }}" id="boards-data" hidden>
             <div id="login-buttons">
                 {% if msg %}
-                    <h3 id="error-msg" class="header">{{ msg }}</h3>
+                <h3 id="error-msg" class="header">{{ msg }}</h3>
                 {% endif %}
 
                 {% if username %}
-                    <button class="btn btn-danger" id="addNewBoardButton">Add New Board</button>
-                    <a href="{{ url_for('logout') }}"><button type="button" id="logout-button" class="btn btn-info">Sign out</button></a>
-                    <h3 id="login-info" class="header">Signed in as {{ username }}</h3>
+                <button class="btn btn-danger" id="addNewBoardButton">Add New Board</button>
+                <a href="{{ url_for('logout') }}">
+                    <button type="button" id="logout-button" class="btn btn-info">Sign out</button>
+                </a>
+                <h3 id="login-info" class="header">Signed in as {{ username }}</h3>
                 {% else %}
-                    <button type="button" id="login-button" class="btn btn-info" onclick="showLoginModal()">Login</button>
-                    <button type="button" id="signup-button" class="btn btn-info" onclick="showSignupModal()">Sign up</button>
+                <button type="button" id="login-button" class="btn btn-info" onclick="showLoginModal()">Login</button>
+                <button type="button" id="signup-button" class="btn btn-info" onclick="showSignupModal()">Sign up
+                </button>
                 {% endif %}
             </div>
-
-            <div id="addNewBoardForm" class="modal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">New Board</h5>
-                            <span class="close">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <p>Insert your new board name, please.</p>
-                            <form method="post">
-                                <input type="text" id="boardName">
-                                <input type="button" id="saveBoardName" value="Save">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <div id="addNewCardForm" class="modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">New Card</h5>
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <p>Insert your new card title, please.</p>
-                        <form method="post">
-                            <input type="text" id="cardName">
-                            <input type="button" id="saveCardName" value="ADD">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="editCardForm" class="modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Card</h5>
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class ="container">
-                      <div class="modal-body">
-
-                          <div class="row">
-                            <div class="col-sm">
-                                    <p>Insert new title and save</p>
-                                    <input type="text" id="newCardName">
-                                    <button type="submit" id="saveNewCardName" value="EditAndSave">Save</button>
-                            </div>
-                            <div class="col-sm">
-                                    <p>or delete your card</p><br/>
-                                    <form action={{ url_for('boards') }}  method="post" id="deleteCards">
-                                    <input type="text" id="deletedCardNum" name='delCardNum' hidden></input>
-                                    <button type="submit" id="deleteCard" form="deleteCards" value="Submit">Delete</button>
-                                    </form>
-                            </div>
-                      </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="warning" class="modal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Warning</h5>
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <p>Check your data, please.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </nav>
     <article>
         <div class="jumbotron">
