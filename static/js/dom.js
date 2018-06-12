@@ -7,6 +7,7 @@ let dom = {
         span.onclick = function() {
             warning.style.display = "none";
         }
+        closeModalIfClickedOutside(warning);
     },
     addNewCardForm: function(id){
         let modal = document.getElementById('addNewCardForm');
@@ -30,6 +31,7 @@ let dom = {
                 cardName.value = '';
             }
         }
+        closeModalIfClickedOutside(modal);
     },
     loadBoards: function() {
         let boards = dataHandler.getBoards();
@@ -205,13 +207,15 @@ let dom = {
                 cardName.value = '';
                 location.reload();
             }
-          }
+        }
 
-            deleteButton.onclick = function () {
-                // changes form value to card id 
-                document.getElementById("deletedCardNum").value = cardId.toString();
-                modal.style.display = "none";
-                }
+        deleteButton.onclick = function () {
+            // changes form value to card id
+            document.getElementById("deletedCardNum").value = cardId.toString();
+            modal.style.display = "none";
+        }
+        closeModalIfClickedOutside(modal);
+
     },
 
         // shows the cards of a board
@@ -242,19 +246,15 @@ menuButtons = function () {
     let span = document.getElementById("addNewBoardClose");
     let boardName = document.getElementById('boardName');
     let saveBoardName = document.getElementById('saveBoardName');
-
-    btn.onclick = function() {
-        modal.style.display = "block";
+    if (btn != null) {
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
     }
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target == 'addNewBoardButton') {
-            modal.style.display = "none";
-        }
-    }
     saveBoardName.onclick = function(){
         let newBoardName = boardName.value;
         if (newBoardName == '') {
@@ -273,10 +273,11 @@ menuButtons = function () {
             }
         }
     };
+    closeModalIfClickedOutside(modal);
 
 };
 
-menuButtons()
+menuButtons();
 
 // Drag & drop
 
@@ -307,11 +308,7 @@ function showLoginModal() {
     document.getElementById("close-login-modal").addEventListener("click", function() {
         loginModal.style.display = "none";
     })
-    window.onclick = function(event) {
-        if (event.target == loginModal) {
-            loginModal.style.display = "none";
-        }
-    }
+    closeModalIfClickedOutside(loginModal);
 }
 
 function showSignupModal() {
@@ -320,9 +317,13 @@ function showSignupModal() {
     document.getElementById("close-signup-modal").addEventListener("click", function() {
         signupModal.style.display = "none";
     })
-    window.onclick = function(event) {
-        if (event.target == signupModal) {
-            signupModal.style.display = "none";
+    closeModalIfClickedOutside(signupModal);
+}
+
+function closeModalIfClickedOutside(modalId) {
+     window.onclick = function(event) {
+        if (event.target == modalId) {
+            modalId.style.display = "none";
         }
     }
 }
