@@ -2,7 +2,7 @@
 let dom = {
     showWarning: function(){
         let warning = document.getElementById('warning');
-        let span = document.getElementsByClassName("close")[3];
+        let span = document.getElementById("warningClose")
         warning.style.display = "block";
         span.onclick = function() {
             warning.style.display = "none";
@@ -12,7 +12,7 @@ let dom = {
         let modal = document.getElementById('addNewCardForm');
         modal.style.display = "block";
 
-        let span = document.getElementsByClassName("close")[2];
+        let span = document.getElementById("addNewCardFormClose");
         span.onclick = function() {
             modal.style.display = "none";
         };
@@ -185,7 +185,7 @@ let dom = {
         let modal = document.getElementById('editCardForm');
         modal.style.display = "block";
 
-        let span = modal.getElementsByClassName("close")[0];
+        let span = document.getElementById("editCardFormClose");
         span.onclick = function() {
             modal.style.display = "none";
         };
@@ -239,7 +239,7 @@ menuButtons = function () {
 
     let modal = document.getElementById('addNewBoardForm');
     let btn = document.getElementById("addNewBoardButton");
-    let span = document.getElementsByClassName("close")[0];
+    let span = document.getElementById("addNewBoardClose");
     let boardName = document.getElementById('boardName');
     let saveBoardName = document.getElementById('saveBoardName');
 
