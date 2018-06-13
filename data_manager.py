@@ -137,12 +137,13 @@ def save_card(cursor, title, board_id):
 
 
 @database_connector.connection_handler
-def edit_card(cursor, newName, id):
+def edit_card(cursor, newName,  status, id):
     cursor.execute("""
                     UPDATE cards
-                    SET title = %s
+                    SET title = %s,
+                        status_id = %s
                     WHERE id = %s
-                    """, (newName, id))
+                    """, (newName, status, id))
     return None
 
 
