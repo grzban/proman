@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, url_for
 import data_manager
+import json
 
 app = Flask(__name__)
 app.secret_key = "CalmDownSatan"
@@ -11,7 +12,7 @@ def boards():
     if "username" in session:
         username = session["username"]
         user_id = data_manager.get_user_id(username)
-        boards = data_manager.get_boards(username)
+        boards = json.dumps(data_manager.get_boards(username))
         if request.method == "POST":
             deleted_card_id = request.form["delCardNum"]
             data_manager.delete_from_table("cards", "id", deleted_card_id)

@@ -34,8 +34,10 @@ let dom = {
         closeModalIfClickedOutside(modal);
     },
     loadBoards: function() {
-        let boards = dataHandler.getBoards();
-        return this.showBoards(boards);
+        if (document.getElementById("user-boards").value) {
+            let boards = JSON.parse(document.getElementById("user-boards").value);
+            return this.showBoards(boards);
+        }
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -254,25 +256,26 @@ menuButtons = function () {
     span.onclick = function() {
         modal.style.display = "none";
     }
-
-    saveBoardName.onclick = function(){
-        let newBoardName = boardName.value;
-        if (newBoardName == '') {
-            dom.showWarning();
-
-        } else {
-            if (dataHandler._data.boards.find(function (obj) {
-                return obj.title == newBoardName;
-            })) {
+    if (saveBoardName) {
+        saveBoardName.onclick = function(){
+            let newBoardName = boardName.value;
+            if (newBoardName == '') {
                 dom.showWarning();
+
             } else {
-                modal.style.display = "none";
-                dataHandler.createNewBoard(newBoardName);
-                dom.loadBoards();
-                boardName.value = '';
+                if (dataHandler._data.boards.find(function (obj) {
+                    return obj.title == newBoardName;
+                })) {
+                    dom.showWarning();
+                } else {
+                    modal.style.display = "none";
+                    dataHandler.createNewBoard(newBoardName);
+                    dom.loadBoards();
+                    boardName.value = '';
+                }
             }
-        }
-    };
+        };
+    }
     closeModalIfClickedOutside(modal);
 
 };
