@@ -19,7 +19,7 @@ def boards():
         statuses = json.dumps(data_handler.get_statuses()["statuses"])
         if request.method == "POST":
             deleted_card_id = request.form["delCardNum"]
-            data_manager.delete_from_table("cards", "id", deleted_card_id)
+            data_manager.delete_card(deleted_card_id)
         return render_template("boards.html", username=username, user_id=user_id, boards=boards, cards=cards, statuses=statuses)
     else:
         return render_template("boards.html")
