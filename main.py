@@ -17,9 +17,6 @@ def boards():
         boards = json.dumps(data_manager.get_boards(username))
         cards = json.dumps(data_manager.get_cards(board_ids))
         statuses = json.dumps(data_handler.get_statuses()["statuses"])
-        if request.method == "POST":
-            deleted_card_id = request.form["delCardNum"]
-            data_manager.delete_card(deleted_card_id)
         return render_template("boards.html", username=username, user_id=user_id, boards=boards, cards=cards, statuses=statuses)
     else:
         return render_template("boards.html")
@@ -73,6 +70,13 @@ def save_card():
     board_id = request.form["board-id-new-card"]
     data_manager.save_card(card, board_id)
     return redirect(url_for("boards"))
+
+@app.route("/delete-card", methods=["POST"])
+def delete_card():
+        deleted_card_id = request.form["delCardNum"]
+        data_manager.delete_card(deleted_card_id)
+        return redirect(url_for("boards"))
+
 
 
 def main():

@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-sm">
                                 <p>or delete your card</p><br/>
-                                <form action="{{ url_for('boards') }}" method="post" id="deleteCards">
+                                <form action="{{ url_for('delete_card') }}" method="post" id="deleteCards">
                                     <input type="text" id="deletedCardNum" name='delCardNum' hidden></input>
                                     <button type="submit" id="deleteCard" form="deleteCards" value="Submit">Delete
                                     </button>
@@ -172,7 +172,7 @@
             </div>
         </div>
     </div>
-    
+
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <img src="{{ url_for('static', filename='image/logo.png') }}" id="proman"
