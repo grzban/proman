@@ -77,11 +77,11 @@ def get_boards(cursor, username):
 
 
 @database_connector.connection_handler
-def delete_from_table(cursor, table, column, value):
+def delete_card(cursor, value):
     cursor.execute("""
-                    DELETE FROM %s
-                    WHERE %s = %s
-                    """, (table, column, value))
+                    DELETE FROM cards
+                    WHERE id = %s
+                    """, (value))
 
     return None
 
