@@ -82,7 +82,6 @@ def delete_card(cursor, value):
                     DELETE FROM cards
                     WHERE id = %s
                     """, (value))
-
     return None
 
 
@@ -144,3 +143,16 @@ def save_card(cursor, title, board_id):
                     INSERT INTO cards (title, board_id, status_id)
                     VALUES (%s, %s, 1)
                     """, (title, board_id))
+
+
+
+
+
+@database_connector.connection_handler
+def edit_card(cursor, newName, oldName):
+    cursor.execute("""
+                    UPDATE cards
+                    SET title = %s
+                    WHERE title = %s
+                    """, (newName, oldName))
+    return None

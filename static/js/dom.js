@@ -163,7 +163,7 @@ let dom = {
 
 
     editCard: function(targetId) {
-        let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
+        let cardId = targetId.slice(targetId.indexOf("card")).replace( /\D+/g, '');
         let modal = document.getElementById('editCardForm');
         let oldCardName = document.getElementById(targetId).innerHTML;
         document.getElementById('newCardName').value = oldCardName;;
@@ -179,14 +179,13 @@ let dom = {
         let deleteButton = document.getElementById("deleteCard");
 
         saveButton.onclick = function () {
+            document.getElementById('oldCardName').value = oldCardName;
             let newCardName = document.getElementById('newCardName').value;
             if (newCardName == '') {
                 dom.showWarning();
             } else {
                 modal.style.display = "none";
-                dataHandler._data.cards.find(card => card.id == cardId).title = newCardName;
-                dataHandler._saveData();
-                cardName.value = '';
+                newCardName  = '';
                 location.reload();
             }
         }
