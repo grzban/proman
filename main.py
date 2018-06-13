@@ -81,9 +81,9 @@ def delete_card():
 
 @app.route("/edit-card", methods=["POST"])
 def edit_card():
-        edited_card_old_name = request.form["oldCardName"]
+        edited_card_id = request.form["edCardNum"]
         edited_card_new_name = request.form["newCardName"]
-        data_manager.edit_card(edited_card_new_name, edited_card_old_name)
+        data_manager.edit_card(edited_card_new_name, edited_card_id)
         return redirect(url_for("boards"))
 
 
