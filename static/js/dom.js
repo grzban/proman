@@ -95,11 +95,11 @@ let dom = {
 
             boardsDiv.appendChild(boardBox);
 
-            
-            
 
-            
-            
+
+
+
+
             let cards = JSON.parse(document.getElementById("user-cards").value);
             dom.showCards(boards[i].id, cards);
 
@@ -148,12 +148,10 @@ let dom = {
         cardButt.setAttribute("ondragstart", "drag(event)");
         cardButt.style.margin = "8px";
         cardButt.style.width = "100%";
-        let cardButtHeader = document.createElement("h8");
         let txt = document.createTextNode(card["title"]);
         cardButt.classList.add('cards', 'btn', 'btn-default', "block");
         cardButt.id = "board-" + boardId + "-card-" + card.id;
-        cardButt.appendChild(cardButtHeader);
-        cardButtHeader.appendChild(txt);
+        cardButt.appendChild(txt);
         statusDiv.appendChild(cardButt);
         let modCardId = cardButt.id;
         cardButt.onclick = function () {
@@ -167,19 +165,21 @@ let dom = {
     editCard: function(targetId) {
         let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
         let modal = document.getElementById('editCardForm');
+        let oldCardName = document.getElementById(targetId).innerHTML;
+        document.getElementById('newCardName').value = oldCardName;;
         modal.style.display = "block";
 
+        //document.getElementById('newCardName').value =
         let span = document.getElementById("editCardFormClose");
         span.onclick = function() {
             modal.style.display = "none";
         };
 
-        let cardName = document.getElementById('newCardName');
         let saveButton = document.getElementById("saveNewCardName");
         let deleteButton = document.getElementById("deleteCard");
 
         saveButton.onclick = function () {
-            let newCardName = cardName.value;
+            let newCardName = document.getElementById('newCardName').value;
             if (newCardName == '') {
                 dom.showWarning();
             } else {
