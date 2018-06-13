@@ -1,5 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, url_for
 import data_manager
+import data_handler
+import json
 
 app = Flask(__name__)
 app.secret_key = "CalmDownSatan"
@@ -10,12 +12,15 @@ def boards():
     ''' this is a one-pager which shows all the boards and cards '''
     if "username" in session:
         username = session["username"]
+        board_ids = data_manager.get_board_ids(username)
         user_id = data_manager.get_user_id(username)
-        boards = data_manager.get_boards(username)
+        boards = json.dumps(data_manager.get_boards(username))
+        cards = json.dumps(data_manager.get_cards(board_ids))
+        statuses = json.dumps(data_handler.get_statuses()["statuses"])
         if request.method == "POST":
             deleted_card_id = request.form["delCardNum"]
             data_manager.delete_from_table("cards", "id", deleted_card_id)
-        return render_template("boards.html", username=username, user_id=user_id, boards=boards)
+        return render_template("boards.html", username=username, user_id=user_id, boards=boards, cards=cards, statuses=statuses)
     else:
         return render_template("boards.html")
 
@@ -59,6 +64,14 @@ def save_board():
     user_id = data_manager.get_user_id(username)
     if not data_manager.is_board_name_in_use(board, user_id):
         data_manager.add_board(board, user_id)
+    return redirect(url_for("boards"))
+
+
+@app.route("/save-card", methods=["POST"])
+def save_card():
+    card = request.form["new-card-title"]
+    board_id = request.form["board-id-new-card"]
+    data_manager.save_card(card, board_id)
     return redirect(url_for("boards"))
 
 

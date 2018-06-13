@@ -10,6 +10,8 @@ let dom = {
         closeModalIfClickedOutside(warning);
     },
     addNewCardForm: function(id){
+        document.getElementById("board-id-new-card").value = id;
+
         let modal = document.getElementById('addNewCardForm');
         modal.style.display = "block";
 
@@ -17,25 +19,13 @@ let dom = {
         span.onclick = function() {
             modal.style.display = "none";
         };
-        let cardName = document.getElementById('cardName');
-        let saveButton = document.getElementById("saveCardName");
-        saveButton.onclick = function () {
-            let newCardName = cardName.value;
-            console.log(newCardName);
-            if (newCardName === '') {
-                dom.showWarning();
-            } else {
-                modal.style.display = "none";
-                dataHandler.createNewCard(newCardName, id, 1);
-                dom.loadBoards();
-                cardName.value = '';
-            }
-        }
         closeModalIfClickedOutside(modal);
     },
     loadBoards: function() {
-        let boards = dataHandler.getBoards();
-        return this.showBoards(boards);
+        if (document.getElementById("user-boards").value) {
+            let boards = JSON.parse(document.getElementById("user-boards").value);
+            return this.showBoards(boards);
+        }
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -50,10 +40,12 @@ let dom = {
 
             let singleBoardContainer = document.createElement("div");
             singleBoardContainer.id = "board-" + boards[i].id;
+            singleBoardContainer.classList.add("board-view");
+            singleBoardContainer.style.display = "none";
 
             let singleBoard = document.createElement("div");
             singleBoard.id = "board-" + boards[i].id + "-container";
-            singleBoard.className = "row";
+            singleBoard.classList.add("row");
 
             let titleButton = document.createElement("button");
             titleButton.id = "board-" + boards[i]["id"] + "-btn";
@@ -80,7 +72,7 @@ let dom = {
             cardButton.appendChild(cardButtonHeader);
             cardButtonHeader.appendChild(cardTxt);
 
-            let statuses = dataHandler.getStatuses();
+            let statuses = JSON.parse(document.getElementById("statuses").value)
             statuses.forEach(function(status) {
                 let newStatus = document.createElement("div");
                 newStatus.id = "board-" + boards[i].id + "-status-" + status.id;
@@ -103,47 +95,32 @@ let dom = {
 
             boardsDiv.appendChild(boardBox);
 
-            let cards = dom.loadCards(boards[i].id);
+            let cards = document.getElementById("user-cards");
             dom.showCards(boards[i].id, cards);
 
-            let board = boards[i];
-            let id = board.id;
-            let boardDiv = document.getElementById('board-'+ id);
+            titleButton.addEventListener("click", function() {
+                if (singleBoardContainer.style.display == "none") {
+                    singleBoardContainer.style.display = "block"
+                } else {
+                    singleBoardContainer.style.display = "none";
+                };
+            });
 
-            if (board.is_active) {
-                boardDiv.style.display = ""
-            } else {
-                boardDiv.style.display = "none";
-            }
-            titleButton.onclick = function() {
-                dataHandler.changeStatus(id);
-                dom.loadBoards();
-            };
-
-            let addCardButton = document.getElementById("card-" + id + "-btn");
-            addCardButton.onclick = function (event) {
-                dom.addNewCardForm(id);
+            let addCardButton = document.getElementById("card-" + boards[i].id + "-btn");
+            addCardButton.onclick = function() {
+                dom.addNewCardForm(boards[i].id);
             };
 
         }
     },
-    loadCards: function(boardId) {
-
-          let boardCards = dataHandler.getCardsByBoardId(boardId);
-          if (boardCards) {
-              return boardCards;
-          } else {
-              return null;
-          }
-    },
 
     showCards: function(boardId, cards) {
         if (cards != null) {
-            let statuses = dataHandler.getStatuses();
-            cards.sort(function sortByOrder(a, b) {
-               return a.order - b.order
-            });
 
+            // cards.sort(function sortByOrder(a, b) {
+            //    return a.order - b.order
+            // });
+            let statuses = JSON.parse(document.getElementById("statuses").value)
             for (i = 1; i <= statuses.length; i++) {
                 for (c = 0; c< cards.length; c++) {
                     if (cards[c].status_id === i) {
@@ -254,25 +231,26 @@ menuButtons = function () {
     span.onclick = function() {
         modal.style.display = "none";
     }
-
-    saveBoardName.onclick = function(){
-        let newBoardName = boardName.value;
-        if (newBoardName == '') {
-            dom.showWarning();
-
-        } else {
-            if (dataHandler._data.boards.find(function (obj) {
-                return obj.title == newBoardName;
-            })) {
+    if (saveBoardName) {
+        saveBoardName.onclick = function(){
+            let newBoardName = boardName.value;
+            if (newBoardName == '') {
                 dom.showWarning();
+
             } else {
-                modal.style.display = "none";
-                dataHandler.createNewBoard(newBoardName);
-                dom.loadBoards();
-                boardName.value = '';
+                if (dataHandler._data.boards.find(function (obj) {
+                    return obj.title == newBoardName;
+                })) {
+                    dom.showWarning();
+                } else {
+                    modal.style.display = "none";
+                    dataHandler.createNewBoard(newBoardName);
+                    dom.loadBoards();
+                    boardName.value = '';
+                }
             }
-        }
-    };
+        };
+    }
     closeModalIfClickedOutside(modal);
 
 };
