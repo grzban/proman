@@ -112,10 +112,14 @@
                     <span class="close" id="addNewCardFormClose">&times;</span>
                 </div>
                 <div class="modal-body">
-                    <p>Insert your new card title, please.</p>
-                    <form method="post">
-                        <input type="text" id="cardName">
-                        <input type="button" id="saveCardName" value="ADD">
+                    <form action="{{ url_for('save_card') }}" method="POST" id="newCardForm">
+                        <div class="form-group">
+                            <input name="board-id-new-card" id="board-id-new-card" hidden>
+                            <label for="newCardName">Insert your new card title, please.</label>
+                            <input type="text" class="form-control" placeholder="Enter new card name"
+                                    pattern=".{3,}" required title="minimum 3 characters" name="new-card-title">
+                            <button type="submit" class="btn btn-info" id="saveCardName">Add</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -177,6 +181,8 @@
             <!-- Login and sign up buttons -->
             <input value="{{ username }}" id="username" hidden>
             <input value="{{ boards }}" id="user-boards" hidden>
+            <input value="{{ cards }}" id="user-cards" hidden>
+            <input value="{{ statuses }}" id="statuses" hidden>
             <div id="login-buttons">
                 {% if msg %}
                 <h3 id="error-msg" class="header">{{ msg }}</h3>

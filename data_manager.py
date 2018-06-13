@@ -56,15 +56,15 @@ def get_board_ids(cursor, username):
                         WHERE account_id = (%(user_id)s)
                         """, {"user_id": user_id})
         board_ids = cursor.fetchall()
-        return board_ids
+        result = data_handler.get_board_ids_out(board_ids)
+        return result
     return None
 
 
 @database_connector.connection_handler
 def get_boards(cursor, username):
-    board_ids = get_board_ids(username)
-    if board_ids:
-        boards = data_handler.get_board_ids_out(board_ids)
+    boards = get_board_ids(username)
+    if boards:
         query = sql.SQL("""
                         SELECT * FROM boards
                         WHERE id IN ({vals})
@@ -122,3 +122,25 @@ def add_account_board_connection(cursor, user_id, board_id):
                     INSERT INTO boards_accounts
                     VALUES (%s, %s)
                     """, (user_id, board_id))
+
+
+@database_connector.connection_handler
+def get_cards(cursor, board_ids):
+    if board_ids:
+        query = sql.SQL("""
+                        SELECT * FROM cards
+                        WHERE board_id IN ({vals})
+                        """).format(
+                            vals=sql.SQL(", ").join(sql.Placeholder()*len(board_ids)))
+        cursor.execute(query, board_ids)
+        new_cards = cursor.fetchall()
+        return new_cards
+    return None
+
+
+@database_connector.connection_handler
+def save_card(cursor, title, board_id):
+    cursor.execute("""
+                    INSERT INTO cards (title, board_id, status_id)
+                    VALUES (%s, %s, 1)
+                    """, (title, board_id))
