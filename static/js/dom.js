@@ -41,6 +41,7 @@ let dom = {
             let singleBoardContainer = document.createElement("div");
             singleBoardContainer.id = "board-" + boards[i].id;
             singleBoardContainer.classList.add("board-view");
+            singleBoardContainer.style.display = "none";
 
             let singleBoard = document.createElement("div");
             singleBoard.id = "board-" + boards[i].id + "-container";
@@ -94,11 +95,13 @@ let dom = {
 
             boardsDiv.appendChild(boardBox);
 
-            let cards = document.getElementById("user-cards");
+
+
+            let cards = JSON.parse(document.getElementById("user-cards").value);
             dom.showCards(boards[i].id, cards);
 
             titleButton.addEventListener("click", function() {
-                if (singleBoardContainer.style.display = "none") {
+                if (singleBoardContainer.style.display == "none") {
                     singleBoardContainer.style.display = "block"
                 } else {
                     singleBoardContainer.style.display = "none";
@@ -122,7 +125,7 @@ let dom = {
             let statuses = JSON.parse(document.getElementById("statuses").value)
             for (i = 1; i <= statuses.length; i++) {
                 for (c = 0; c< cards.length; c++) {
-                    if (cards[c].status_id === i) {
+                    if (cards[c].status_id === i && cards[c].board_id === boardId) {
                         dom.addCardToStatus(boardId, cards[c])
                     };
                 };
@@ -136,18 +139,16 @@ let dom = {
 
 
     addCardToStatus: function(boardId, card) {
-        let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
+        let statusDiv = document.getElementById("board-" + boardId + "-status-" + i);
         let cardButt =  document.createElement("button");
         cardButt.draggable = true;
         cardButt.setAttribute("ondragstart", "drag(event)");
         cardButt.style.margin = "8px";
         cardButt.style.width = "100%";
-        let cardButtHeader = document.createElement("h8");
-        let txt = document.createTextNode(card["title"]);
+        let txt = document.createTextNode(card.title);
         cardButt.classList.add('cards', 'btn', 'btn-default', "block");
         cardButt.id = "board-" + boardId + "-card-" + card.id;
-        cardButt.appendChild(cardButtHeader);
-        cardButtHeader.appendChild(txt);
+        cardButt.appendChild(txt);
         statusDiv.appendChild(cardButt);
         let modCardId = cardButt.id;
         cardButt.onclick = function () {
@@ -159,28 +160,29 @@ let dom = {
 
 
     editCard: function(targetId) {
-        let cardId = targetId.slice(targetId.indexOf('card')).replace( /\D+/g, '');
+        let cardId = targetId.slice(targetId.indexOf("card")).replace( /\D+/g, '');
         let modal = document.getElementById('editCardForm');
+        let oldCardName = document.getElementById(targetId).innerHTML;
+        document.getElementById('newCardName').value = oldCardName;;
         modal.style.display = "block";
 
+        //document.getElementById('newCardName').value =
         let span = document.getElementById("editCardFormClose");
         span.onclick = function() {
             modal.style.display = "none";
         };
 
-        let cardName = document.getElementById('newCardName');
         let saveButton = document.getElementById("saveNewCardName");
         let deleteButton = document.getElementById("deleteCard");
 
         saveButton.onclick = function () {
-            let newCardName = cardName.value;
+            document.getElementById('editedCardNum').value = cardId.toString();
+            let newCardName = document.getElementById('newCardName').value;
             if (newCardName == '') {
                 dom.showWarning();
             } else {
                 modal.style.display = "none";
-                dataHandler._data.cards.find(card => card.id == cardId).title = newCardName;
-                dataHandler._saveData();
-                cardName.value = '';
+                newCardName  = '';
                 location.reload();
             }
         }

@@ -77,16 +77,6 @@ def get_boards(cursor, username):
 
 
 @database_connector.connection_handler
-def delete_from_table(cursor, table, column, value):
-    cursor.execute("""
-                    DELETE FROM %s
-                    WHERE %s = %s
-                    """, (table, colume, value))
-
-    return None
-
-
-@database_connector.connection_handler
 def is_board_name_in_use(cursor, board, user_id):
     cursor.execute("""
                     SELECT boards.id FROM boards
@@ -144,3 +134,22 @@ def save_card(cursor, title, board_id):
                     INSERT INTO cards (title, board_id, status_id)
                     VALUES (%s, %s, 1)
                     """, (title, board_id))
+
+
+@database_connector.connection_handler
+def edit_card(cursor, newName, id):
+    cursor.execute("""
+                    UPDATE cards
+                    SET title = %s
+                    WHERE id = %s
+                    """, (newName, id))
+    return None
+
+
+@database_connector.connection_handler
+def delete_card(cursor, value):
+    cursor.execute("""
+                    DELETE FROM cards
+                    WHERE id = %s
+                    """, (value,))
+    return None
