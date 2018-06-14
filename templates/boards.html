@@ -161,6 +161,36 @@
         </div>
     </div>
 
+    <!--Delete board modal-->
+    <div id="deleteCardForm" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete</h5>
+                    <span class="close" id="deleteCardFormClose">&times;</span>
+                </div>
+                <div class="container">
+                    <div class="modal-body">
+
+                        <div class="row">
+                          
+
+                            <div class="col-sm">
+                                <p>Are you sure?</p><br/>
+                                <form action="{{ url_for('delete_board') }}" method="post" id="deleteBoard">
+                                    <input type="text" id="deletedBoardNum" name="delBoardNum" hidden></input>
+                                    <button type="submit" id="deleteBoard" form="deleteBoard" value="Submit">Delete</button>
+                                </form>
+
+                            </div>
+                        </div>
+>>>>>>> b389ac7832c3ff244595af609cea9e3642c1df46
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--Warning message modal-->
     <div id="warning" class="modal">
         <div class="modal-dialog" role="document">

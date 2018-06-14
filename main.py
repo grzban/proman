@@ -78,12 +78,19 @@ def delete_card():
         data_manager.delete_card(deleted_card_id)
         return redirect(url_for("boards"))
 
+@app.route("/delete-board", methods=["POST"])
+def delete_board():
+        deleted_board_id = request.form["delBoardNum"]
+        data_manager.delete_card(deleted_board_id)
+        return redirect(url_for("boards"))
+
 
 @app.route("/edit-card", methods=["POST"])
 def edit_card():
+        edited_card_status = request.form["status"]
         edited_card_id = request.form["edCardNum"]
         edited_card_new_name = request.form["newCardName"]
-        data_manager.edit_card(edited_card_new_name, edited_card_id)
+        data_manager.edit_card(edited_card_new_name, edited_card_status, edited_card_id)
         return redirect(url_for("boards"))
 
 
