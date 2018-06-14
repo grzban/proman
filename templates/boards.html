@@ -136,19 +136,19 @@
                 </div>
                 <div class="container">
                     <div class="modal-body">
-                        <form action="{{ url_for('edit_card') }}" method="post" id="editCards"></form>
+                        <form action="{{ url_for('edit_card') }}" method="post" id="editCards" name="editCardsForm"></form>
                             <label for="newCardName">Insert new title and save</label>
-                            <input type="text" id="editedCardNum"  name="edCardNum" hidden></input>
-                            <input type="text" class="form-control" placeholder="Enter new card name"
-                                    pattern=".{3,}" required title="minimum 3 characters" id="newCardName"  name="newCardName" ></input>
-                            <label for="new-status">Choose your status:</label>    
-                            <select name="new-status" class="form-control">
+                            <input type="text" id="editedCardNum"  name="edCardNum" form="editCards" hidden></input>
+                            <input type="text" class="form-control" name="newCardName" form="editCards"  placeholder="Enter new card name"
+                                    pattern=".{3,}" required title="minimum 3 characters" id="newCardName"   ></input>
+                            <label for="new-status">Choose your status:</label>
+                            <select name="new-status" form="editCards" class="form-control">
                                 <option value="1">New</option>
                                 <option value="2">In progress</option>
                                 <option value="3">Testing</option>
                                 <option value="4">Done</option>
                             </select><br/>
-                            <button type="submit" id="saveNewCardName" value="EditAndSave" class="btn btn-success">Save</button>
+                            <button type="submit" id="saveNewCardName" value="EditAndSave" form="editCards"  class="btn btn-success">Save</button>
                         </form>
                         <form action="{{ url_for('delete_card') }}" method="post" id="deleteCards">
                             <input type="text" id="deletedCardNum" name="delCardNum" hidden></input>
