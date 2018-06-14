@@ -137,22 +137,25 @@
                 <div class="container">
                     <div class="modal-body">
 
-                        <div class="row">
-                            <div class="col-sm">
                                 <p>Insert new title and save</p>
-
                                 <form action="{{ url_for('edit_card') }}" method="post" id="editCards">
                                     <input type="text" id="editedCardNum"  name="edCardNum" hidden></input>
                                     <input type="text" id="newCardName"  name="newCardName" ></input>
-                                    <button type="submit" id="saveNewCardName" value="EditAndSave">Save</button>
+                                    <p> Choose your status: </p>
+                                    <select name="Status">
+                                     <option value="1">NEW</option>
+                                     <option value="2">In progress</option>
+                                     <option value="3">Testing</option>
+                                     <option value="4">Done</option>
+                                   </select><br/>
+                                    <button type="submit" id="saveNewCardName" value="EditAndSave" class="btn btn-success">Save</button>
                                 </form>
-                            </div>
 
-                            <div class="col-sm">
-                                <p>or delete your card</p><br/>
+
                                 <form action="{{ url_for('delete_card') }}" method="post" id="deleteCards">
                                     <input type="text" id="deletedCardNum" name="delCardNum" hidden></input>
-                                    <button type="submit" id="deleteCard" form="deleteCards" value="Submit">Delete</button>
+                                    <p>or delete your card</p><br/>
+                                    <button type="submit" id="deleteCard" form="deleteCards" value="Submit" class="btn btn-danger">Delete</button>
                                 </form>
 
                             </div>
