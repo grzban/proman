@@ -179,7 +179,7 @@ let dom = {
         let deleteButton = document.getElementById("deleteCard");
 
         saveButton.onclick = function () {
-            document.getElementById('oldCardName').value = oldCardName;
+            document.getElementById('editedCardNum').value = cardId.toString();
             let newCardName = document.getElementById('newCardName').value;
             if (newCardName == '') {
                 dom.showWarning();
