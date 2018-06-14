@@ -171,15 +171,11 @@
                 </div>
                 <div class="container">
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm">
-                                <p>Are you sure?</p><br/>
-                                <form action="{{ url_for('delete_board') }}" method="post" id="deleteBoard">
-                                    <input type="text" id="deletedBoardNum" name="delBoardNum" hidden/>
-                                    <button type="submit" id="deleteBoardButton" form="deleteBoard" value="Submit">Delete</button>
-                                </form>
-                            </div>
-                        </div>
+                        <p>Are you sure?</p><br/>
+                        <form action="{{ url_for('delete_board') }}" method="post" id="deleteBoard">
+                            <input type="text" id="deletedBoardNum" name="delBoardNum" hidden/>
+                            <button type="submit" class="btn btn-danger" id="deleteBoardButton" form="deleteBoard" value="Submit">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>
