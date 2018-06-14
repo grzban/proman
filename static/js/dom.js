@@ -33,8 +33,8 @@ let dom = {
         let boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
-            
-            
+
+
 
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
@@ -88,10 +88,6 @@ let dom = {
                 newStatus.className = "col text-center";
                 let cardsWindow = document.createElement("div");
                 cardsWindow.id = "card-" + boards[i].id + "-box-" + status.id;
-                cardsWindow.className = "droparea";
-                cardsWindow.setAttribute("ondragover", "allowDrop(event)");
-                cardsWindow.setAttribute("ondrop", "drop(event)");
-                cardsWindow.style.minHeight = "40px";
                 let newStatusHeader = document.createElement("h5");
                 newStatusHeader.style.textAlign = "center";
                 let newStatusTitle = document.createTextNode(status.name);
