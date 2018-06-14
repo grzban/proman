@@ -78,10 +78,11 @@ def delete_card():
         data_manager.delete_card(deleted_card_id)
         return redirect(url_for("boards"))
 
+
 @app.route("/delete-board", methods=["POST"])
 def delete_board():
         deleted_board_id = request.form["delBoardNum"]
-        data_manager.delete_card(deleted_board_id)
+        data_manager.delete_board(deleted_board_id)
         return redirect(url_for("boards"))
 
 
@@ -96,6 +97,7 @@ def edit_card():
 
 def main():
     app.run(debug=True)
+
 
 if __name__ == "__main__":
     main()

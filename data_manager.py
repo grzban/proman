@@ -155,6 +155,7 @@ def delete_card(cursor, value):
                     """, (value,))
     return None
 
+
 @database_connector.connection_handler
 def delete_board(cursor, value):
     cursor.execute("""

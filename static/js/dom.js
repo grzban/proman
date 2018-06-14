@@ -9,6 +9,20 @@ let dom = {
         }
         closeModalIfClickedOutside(warning);
     },
+    deleteBoardForm: function(id){
+        let deleteBoardForm = document.getElementById("deleteBoardForm");
+        let deleteBoardFormClose = document.getElementById("deleteBoardFormClose");
+        deleteBoardForm.style.display = "block";
+        deleteBoardFormClose.onclick = function () {
+            deleteBoardForm.style.display = "none";
+        }
+        closeModalIfClickedOutside(deleteBoardForm);
+        let deleteBoardButton = document.getElementById("deleteBoardButton");
+        deleteBoardButton.onclick = function () {
+            document.getElementById("deletedBoardNum").value = id.toString();
+            deleteBoardForm.style.display = "none";
+        }
+    },
     addNewCardForm: function(id){
         document.getElementById("board-id-new-card").value = id;
 
@@ -46,7 +60,10 @@ let dom = {
             singleBoardContainer.style.display = "none";
 
             let deleteButton = document.createElement("button");
-            deleteButton.classList.add("btn", "btn-danger");
+            deleteButton.classList.add("btn", "btn-danger", "board-id-" + boards[i].id);
+            deleteButton.onclick = function(){
+                 dom.deleteBoardForm(boards[i].id);
+            }
             singleBoardContainer.appendChild(deleteButton);
 
             let buttonDeleteHeader = document.createElement("span");
@@ -99,8 +116,6 @@ let dom = {
             });
 
             boardsDiv.appendChild(boardBox);
-
-
 
             let cards = JSON.parse(document.getElementById("user-cards").value);
             dom.showCards(boards[i].id, cards);
