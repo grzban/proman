@@ -48,8 +48,6 @@ let dom = {
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
 
-
-
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
             boardBox.className = "container";
@@ -64,7 +62,7 @@ let dom = {
             deleteButton.onclick = function(){
                  dom.deleteBoardForm(boards[i].id);
             }
-            singleBoardContainer.appendChild(deleteButton);
+
 
             let buttonDeleteHeader = document.createElement("span");
             let txtbtn = document.createTextNode("Delete board");
@@ -87,6 +85,7 @@ let dom = {
             boardBox.appendChild(titleButton);
             boardBox.appendChild(singleBoardContainer);
             singleBoardContainer.appendChild(cardButton);
+            singleBoardContainer.appendChild(deleteButton);
             singleBoardContainer.appendChild(singleBoard);
 
             let buttonHeader = document.createElement("h3");
@@ -156,8 +155,6 @@ let dom = {
       };
     },
 
-
-
     addCardToStatus: function(boardId, card) {
         let statusDiv = document.getElementById("board-" + boardId + "-status-" + i);
         let cardButt =  document.createElement("button");
@@ -176,8 +173,6 @@ let dom = {
             dom.editCard(modCardId);
         };
       },
-
-
 
     editCard: function(targetId) {
         let cardId = targetId.slice(targetId.indexOf("card")).replace( /\D+/g, '');
