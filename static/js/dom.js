@@ -97,9 +97,6 @@ let dom = {
 
 
 
-
-
-
             let cards = JSON.parse(document.getElementById("user-cards").value);
             dom.showCards(boards[i].id, cards);
 
@@ -128,7 +125,7 @@ let dom = {
             let statuses = JSON.parse(document.getElementById("statuses").value)
             for (i = 1; i <= statuses.length; i++) {
                 for (c = 0; c< cards.length; c++) {
-                    if (cards[c].status_id === i) {
+                    if (cards[c].status_id === i && cards[c].board_id === boardId) {
                         dom.addCardToStatus(boardId, cards[c])
                     };
                 };
@@ -142,13 +139,13 @@ let dom = {
 
 
     addCardToStatus: function(boardId, card) {
-        let statusDiv = document.getElementById("card-" + boardId + "-box-" + i);
+        let statusDiv = document.getElementById("board-" + boardId + "-status-" + i);
         let cardButt =  document.createElement("button");
         cardButt.draggable = true;
         cardButt.setAttribute("ondragstart", "drag(event)");
         cardButt.style.margin = "8px";
         cardButt.style.width = "100%";
-        let txt = document.createTextNode(card["title"]);
+        let txt = document.createTextNode(card.title);
         cardButt.classList.add('cards', 'btn', 'btn-default', "block");
         cardButt.id = "board-" + boardId + "-card-" + card.id;
         cardButt.appendChild(txt);
