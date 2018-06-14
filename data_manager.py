@@ -151,5 +151,5 @@ def delete_card(cursor, value):
     cursor.execute("""
                     DELETE FROM cards
                     WHERE id = %s
-                    """, (value))
+                    """, (value,))
     return None
