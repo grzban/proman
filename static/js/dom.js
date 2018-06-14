@@ -33,6 +33,8 @@ let dom = {
         let boardsDiv = document.getElementById('boards');
         boardsDiv.innerHTML = "";
         for (let i = 0; i < boards.length; i++) {
+            
+            
 
             let boardBox = document.createElement("div");
             boardBox.id = "board-box-" + boards[i].id;
@@ -42,6 +44,15 @@ let dom = {
             singleBoardContainer.id = "board-" + boards[i].id;
             singleBoardContainer.classList.add("board-view");
             singleBoardContainer.style.display = "none";
+
+            let deleteButton = document.createElement("button");
+            deleteButton.classList.add("btn", "btn-danger");
+            singleBoardContainer.appendChild(deleteButton);
+
+            let buttonDeleteHeader = document.createElement("span");
+            let txtbtn = document.createTextNode("Delete board");
+            buttonDeleteHeader.appendChild(txtbtn);
+            deleteButton.appendChild(buttonDeleteHeader);
 
             let singleBoard = document.createElement("div");
             singleBoard.id = "board-" + boards[i].id + "-container";
@@ -54,8 +65,6 @@ let dom = {
             titleButton.style.margin = "10px";
             let cardButton = document.createElement("button");
             cardButton.classList.add("btn", "btn-warning");
-            cardButton.style.fontSize = "12px";
-            cardButton.style.margin = "5px";
             cardButton.id = "card-" + boards[i]["id"] + "-btn";
 
             boardBox.appendChild(titleButton);
